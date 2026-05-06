@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top left, #ffe6ef 0%, transparent 25%),
+    radial-gradient(circle at bottom right, #ffeef4 0%, transparent 25%),
+    #fff8fb;
+  color: #2d1b22;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea {
+  font-family: inherit;
+}
+
+::selection {
+  background: #f7bfd0;
+  color: #2d1b22;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #f1b5c5; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #e98aa1; }
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
