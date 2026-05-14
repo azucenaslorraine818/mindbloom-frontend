@@ -2362,3 +2362,3887 @@
   background: #e8607a;
   color: white;
 }
+
+/* ─────────────────────────────────────────
+   PASSWORD STRENGTH
+───────────────────────────────────────── */
+.pw-strength-wrap {
+  margin-top: 8px;
+}
+
+.pw-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.pw-strength-bar-track {
+  flex: 1;
+  height: 6px;
+  background: #f5eef0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pw-strength-bar {
+  height: 6px;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.pw-strength-label {
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 44px;
+  text-align: right;
+}
+
+.pw-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pw-rule {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #8a6672;
+}
+
+.pw-rule-icon {
+  font-size: 11px;
+  font-weight: 700;
+  width: 14px;
+  text-align: center;
+}
+
+.pw-rule.pass { color: #2a7d46; }
+.pw-rule.fail { color: #a0aec0; }
+
+/* ─────────────────────────────────────────
+   FORGOT PASSWORD BUTTON
+───────────────────────────────────────── */
+.lp-forgot-btn {
+  border: none;
+  background: transparent;
+  color: #e8607a;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: right;
+  padding: 0;
+  font-family: inherit;
+  align-self: flex-end;
+  margin-top: -4px;
+  transition: opacity 0.2s;
+}
+
+.lp-forgot-btn:hover { opacity: 0.7; }
+
+/* ─────────────────────────────────────────
+   PASSWORD SHOW/HIDE TOGGLE
+───────────────────────────────────────── */
+.lp-password-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.lp-password-wrap .lp-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lp-pw-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  line-height: 1;
+}
+
+/* ─────────────────────────────────────────
+   FORM GROUP + LABEL (for DOB)
+───────────────────────────────────────── */
+.lp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.lp-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a6672;
+  letter-spacing: 0.3px;
+}
+
+/* =============================
+   SETTINGS PAGE
+   ============================= */
+
+.settings-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.settings-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.settings-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #f3e8ee;
+  border-top-color: #d4829a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Header */
+.settings-header {
+  margin-bottom: 32px;
+}
+
+.settings-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 4px;
+  letter-spacing: -0.5px;
+}
+
+.settings-subtitle {
+  font-size: 14px;
+  color: #9a8c91;
+  margin: 0;
+}
+
+/* Sections */
+.settings-section {
+  margin-bottom: 28px;
+}
+
+.settings-section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9a7f8a;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+}
+
+.settings-section-icon {
+  font-size: 15px;
+}
+
+/* Card */
+.settings-card {
+  background: #ffffff;
+  border: 1px solid #f0e8ec;
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 12px rgba(180, 100, 120, 0.06);
+}
+
+/* Fields */
+.settings-field {
+  margin-bottom: 16px;
+}
+
+.settings-field:last-of-type {
+  margin-bottom: 0;
+}
+
+.settings-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #5c4a52;
+  margin-bottom: 6px;
+}
+
+.settings-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e8dde2;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #2d2d2d;
+  background: #fdfbfc;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.settings-input:focus {
+  border-color: #d4829a;
+  background: #fff;
+}
+
+.settings-hint {
+  display: block;
+  font-size: 12px;
+  color: #b09ba2;
+  margin-top: 5px;
+}
+
+/* Actions row */
+.settings-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #f5eef1;
+}
+
+/* Buttons */
+.settings-btn-primary {
+  background: #d4829a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.settings-btn-primary:hover {
+  background: #c0708a;
+}
+
+.settings-btn-primary:active {
+  transform: scale(0.97);
+}
+
+.settings-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.settings-btn-danger {
+  background: #fff0f2;
+  color: #c0445e;
+  border: 1.5px solid #fad0d8;
+  border-radius: 10px;
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.settings-btn-danger:hover {
+  background: #ffe0e5;
+}
+
+/* Save messages */
+.settings-save-msg {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.settings-save-msg.success { color: #4caf7d; }
+.settings-save-msg.error   { color: #e05c70; }
+
+.settings-error   { color: #e05c70; font-size: 13px; margin: 6px 0 0; }
+.settings-success { color: #4caf7d; font-size: 13px; margin: 6px 0 0; }
+
+/* Divider */
+.settings-divider {
+  border: none;
+  border-top: 1px solid #f5eef1;
+  margin: 14px 0;
+}
+
+/* Toggle rows */
+.settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.settings-toggle-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d2d2d;
+  margin: 0 0 2px;
+}
+
+.settings-toggle-desc {
+  font-size: 13px;
+  color: #9a8c91;
+  margin: 0;
+}
+
+/* Toggle switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #e2d6da;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: #d4829a;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+/* Danger row */
+.settings-danger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .settings-page { padding: 24px 16px 100px; }
+  .settings-title { font-size: 22px; }
+  .settings-card { padding: 16px; }
+}
+
+/* =============================
+   NOTIFICATIONS PAGE
+   ============================= */
+
+.notif-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.notif-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.notif-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 2px;
+  letter-spacing: -0.5px;
+}
+
+.notif-subtitle {
+  font-size: 13px;
+  color: #d4829a;
+  font-weight: 600;
+  margin: 0;
+}
+
+.notif-mark-all {
+  background: none;
+  border: 1.5px solid #e8dde2;
+  border-radius: 8px;
+  color: #9a7f8a;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.notif-mark-all:hover {
+  border-color: #d4829a;
+  color: #d4829a;
+}
+
+/* Loading */
+.notif-loading {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+/* Spinner (reuse from Settings) */
+.settings-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #f3e8ee;
+  border-top-color: #d4829a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Empty */
+.notif-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+  gap: 6px;
+}
+
+.notif-empty-icon { font-size: 40px; }
+
+.notif-empty-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 8px 0 0;
+}
+
+.notif-empty-desc {
+  font-size: 14px;
+  color: #9a8c91;
+  margin: 0;
+}
+
+/* List */
+.notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Item */
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid #f0e8ec;
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 2px 8px rgba(180, 100, 120, 0.05);
+}
+
+.notif-item.unread {
+  background: #fff7f9;
+  border-color: #f5c8d4;
+}
+
+.notif-item:hover {
+  box-shadow: 0 4px 16px rgba(180, 100, 120, 0.1);
+  border-color: #ddb0bf;
+}
+
+/* Icon */
+.notif-icon-wrap {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: #fff0f4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-icon { font-size: 18px; }
+
+/* Body */
+.notif-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif-item-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 3px;
+}
+
+.notif-message {
+  font-size: 13.5px;
+  color: #5c4a52;
+  line-height: 1.5;
+  margin: 0 0 6px;
+}
+
+.notif-time {
+  font-size: 12px;
+  color: #b09ba2;
+}
+
+/* Side */
+.notif-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.notif-dot {
+  width: 9px;
+  height: 9px;
+  background: #d4829a;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.notif-delete {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #c8b0ba;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 2px;
+  transition: color 0.15s;
+}
+
+.notif-delete:hover { color: #e05c70; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .notif-page { padding: 24px 16px 100px; }
+  .notif-title { font-size: 22px; }
+}
+
+/* =============================
+   SUPPORT PAGE
+   (paste this at the bottom of App.css)
+   ============================= */
+
+.support-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.support-header {
+  margin-bottom: 32px;
+}
+
+.support-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 0 0 4px;
+  letter-spacing: -0.5px;
+}
+
+.support-subtitle {
+  font-size: 14px;
+  color: #9a8c91;
+  margin: 0;
+}
+
+.support-section {
+  margin-bottom: 28px;
+}
+
+.support-section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9a7f8a;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+}
+
+.support-section-icon {
+  font-size: 15px;
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  background: #ffffff;
+  border: 1px solid #f0e8ec;
+  border-radius: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 2px 8px rgba(180, 100, 120, 0.05);
+}
+
+.faq-item:hover {
+  border-color: #ddb0bf;
+  box-shadow: 0 3px 14px rgba(180, 100, 120, 0.1);
+}
+
+.faq-item.open {
+  border-color: #d4829a;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d2d2d;
+  user-select: none;
+}
+
+.faq-chevron {
+  font-size: 20px;
+  color: #d4829a;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  font-size: 13.5px;
+  color: #6b5a61;
+  line-height: 1.6;
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #f5eef1;
+}
+
+/* Contact card */
+.support-card {
+  background: #ffffff;
+  border: 1px solid #f0e8ec;
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 12px rgba(180, 100, 120, 0.06);
+}
+
+.support-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+/* Sent state */
+.support-sent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  gap: 8px;
+}
+
+.support-sent-icon { font-size: 36px; }
+
+.support-sent-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin: 4px 0 0;
+}
+
+.support-sent-desc {
+  font-size: 14px;
+  color: #9a8c91;
+  margin: 0 0 16px;
+}
+
+@media (max-width: 480px) {
+  .support-page { padding: 24px 16px 100px; }
+  .support-title { font-size: 22px; }
+  .support-card { padding: 16px; }
+}
+
+/* ================================================
+   PROFESSIONAL SETTINGS / SUPPORT STYLES
+   Paste at the bottom of App.css
+   ================================================ */
+
+.pro-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 40px 20px 100px;
+}
+
+.pro-top {
+  margin-bottom: 32px;
+}
+
+.pro-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* Group label */
+.pro-group {
+  margin-bottom: 24px;
+}
+
+.pro-group-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 8px 4px;
+}
+
+/* Card */
+.pro-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.pro-card-flush .pro-faq-item {
+  padding: 16px 20px;
+}
+
+/* Field */
+.pro-field {
+  padding: 14px 20px;
+}
+
+.pro-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.pro-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: transparent;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.pro-input::placeholder {
+  color: #bbb;
+}
+
+.pro-textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.6;
+}
+
+.pro-hint {
+  display: block;
+  font-size: 12px;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+/* Divider */
+.pro-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 0 20px;
+}
+
+/* Card footer */
+.pro-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 20px;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+/* Buttons */
+.pro-btn {
+  background: #0084ff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.pro-btn:hover   { background: #006ed4; }
+.pro-btn:active  { transform: scale(0.97); }
+.pro-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.pro-btn-outline-danger {
+  background: transparent;
+  color: #e0453a;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.pro-btn-outline-danger:hover { background: #fff0ef; }
+
+/* Messages */
+.pro-msg {
+  font-size: 13px;
+  font-weight: 500;
+}
+.pro-msg.success { color: #2ea043; }
+.pro-msg.error   { color: #e0453a; }
+
+/* Toggle row */
+.pro-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+.pro-toggle-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 2px;
+}
+
+.pro-toggle-desc {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+}
+
+/* Toggle switch */
+.pro-toggle {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.pro-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pro-toggle-track {
+  display: block;
+  width: 46px;
+  height: 26px;
+  background: #ddd;
+  border-radius: 26px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.pro-toggle input:checked ~ .pro-toggle-track {
+  background: #0084ff;
+}
+
+.pro-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+
+.pro-toggle input:checked ~ .pro-toggle-track .pro-toggle-thumb {
+  transform: translateX(20px);
+}
+
+/* FAQ */
+.pro-faq-item {
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.pro-faq-item:hover { background: #fafafa; }
+
+.pro-faq-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.pro-faq-q {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  user-select: none;
+}
+
+.pro-faq-icon {
+  font-size: 18px;
+  color: #bbb;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.pro-faq-item.open .pro-faq-icon { color: #0084ff; }
+
+.pro-faq-a {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.65;
+  margin: 0;
+  padding: 0 20px 16px;
+}
+
+/* Sent state */
+.pro-sent {
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.pro-sent-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+}
+
+.pro-sent-desc {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+/* Spinner */
+.pro-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2.5px solid #eee;
+  border-top-color: #0084ff;
+  border-radius: 50%;
+  animation: proSpin 0.65s linear infinite;
+}
+
+@keyframes proSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .pro-page { padding: 24px 16px 100px; }
+  .pro-title { font-size: 20px; }
+}
+
+/* ================================================
+   HISTORY PAGE — FILTERS + SELECT
+   Paste at the bottom of App.css
+   ================================================ */
+
+.history-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* Tone filter pills */
+.history-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.history-filter-btn {
+  border: 1.5px solid #e8dde2;
+  background: #fff;
+  border-radius: 50px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #8a6672;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.history-filter-btn:hover {
+  border-color: #d4829a;
+  color: #d4829a;
+}
+
+.history-filter-btn.active {
+  color: #fff;
+  border-color: transparent;
+}
+
+.history-filter-btn.active.all      { background: #e8607a; }
+.history-filter-btn.active.positive { background: #6DBF8A; }
+.history-filter-btn.active.neutral  { background: #A0AEC0; }
+.history-filter-btn.active.negative { background: #E8607A; }
+
+/* Select controls */
+.history-select-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-select-btn {
+  border: 1.5px solid #e8dde2;
+  background: #fff;
+  border-radius: 50px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #8a6672;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.history-select-btn:hover {
+  border-color: #d4829a;
+  color: #d4829a;
+}
+
+.history-delete-btn {
+  border: none;
+  background: #E8607A;
+  color: #fff;
+  border-radius: 50px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  font-family: inherit;
+}
+
+.history-delete-btn:hover    { background: #c94f68; }
+.history-delete-btn:active   { transform: scale(0.97); }
+.history-delete-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.history-cancel-btn {
+  border: none;
+  background: transparent;
+  color: #aaa;
+  border-radius: 50px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.history-cancel-btn:hover { color: #666; }
+
+/* Entry count */
+.history-count {
+  font-size: 13px;
+  color: #b09ba2;
+  margin: 0 0 12px 2px;
+  font-weight: 500;
+}
+
+/* Checkbox overlay */
+.entry-card {
+  position: relative;
+}
+
+.entry-checkbox-wrap {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+}
+
+.entry-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #d4829a;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.entry-checkbox.checked {
+  background: #e8607a;
+  border-color: #e8607a;
+}
+
+/* Selected card highlight */
+.entry-card-selected {
+  outline: 2px solid #e8607a;
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .history-toolbar { flex-direction: column; align-items: flex-start; }
+  .history-select-controls { width: 100%; }
+}
+
+/* =========================
+   SETTINGS PAGE (PRO STYLE)
+========================= */
+
+.pro-page {
+  padding: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pro-top {
+  margin-bottom: 18px;
+}
+
+.pro-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2b1b22;
+}
+
+/* section grouping */
+.pro-group {
+  margin-bottom: 22px;
+}
+
+.pro-group-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #b09ba2;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* card container */
+.pro-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* fields */
+.pro-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pro-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5c3d45;
+}
+
+.pro-input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6d6db;
+  outline: none;
+  font-size: 14px;
+  transition: border 0.15s;
+}
+
+.pro-input:focus {
+  border-color: #e8607a;
+}
+
+/* divider */
+.pro-divider {
+  height: 1px;
+  background: #f1e6ea;
+  margin: 2px 0;
+}
+
+/* footer */
+.pro-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+/* button */
+.pro-btn {
+  background: #e8607a;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.pro-btn:hover {
+  background: #d94f6a;
+}
+
+/* toggle */
+.pro-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.pro-toggle-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3a232a;
+}
+
+.pro-toggle-desc {
+  font-size: 12px;
+  color: #a07b86;
+}
+
+.pro-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+}
+
+.pro-toggle input {
+  display: none;
+}
+
+.pro-toggle-track {
+  position: absolute;
+  inset: 0;
+  background: #e6d6db;
+  border-radius: 999px;
+  transition: 0.2s;
+}
+
+.pro-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.pro-toggle input:checked + .pro-toggle-track {
+  background: #e8607a;
+}
+
+.pro-toggle input:checked + .pro-toggle-track .pro-toggle-thumb {
+  transform: translateX(20px);
+}
+
+/* spinner */
+.pro-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f1e6ea;
+  border-top-color: #e8607a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* responsive */
+@media (max-width: 480px) {
+  .pro-page {
+    padding: 16px;
+  }
+
+  .pro-card-footer {
+    justify-content: stretch;
+  }
+
+  .pro-btn {
+    width: 100%;
+  }
+
+  .pro-toggle-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =========================
+   PASSWORD SECTION FIX
+========================= */
+
+.pro-card input[type="password"] {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6d6db;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.15s;
+}
+
+.pro-card input[type="password"]:focus {
+  border-color: #e8607a;
+}
+
+/* password button (fallback since it has no class) */
+.pro-card button {
+  background: #e8607a;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.pro-card button:hover {
+  background: #d94f6a;
+}
+
+/* error + success messages */
+.pro-card p {
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.pro-card p:empty {
+  display: none;
+}
+
+/* error style (passwordError) */
+.pro-card p {
+  color: #a34b5a;
+}
+
+/* =========================
+   SIGN OUT BUTTON (DANGER ACTION)
+========================= */
+
+.pro-signout-wrap {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.pro-btn-danger {
+  background: #fff;
+  color: #e04863;
+  border: 1px solid #f1c3cb;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s;
+  width: 100%;
+  max-width: 240px;
+}
+
+.pro-btn-danger:hover {
+  background: #fff3f5;
+  border-color: #e04863;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper .auth-input {
+  padding-right: 45px; /* makes space for eye icon */
+}
+
+.eye-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+  z-index: 2;
+  opacity: 0.8;
+}
+
+.eye-toggle:hover {
+  opacity: 1;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper .auth-input {
+  width: 100%;
+  padding-right: 45px; /* makes space for eye icon */
+  box-sizing: border-box;
+}
+
+/* ================================================================
+   MINDBLOOM — App.css ADDITIONS
+   Paste this at the VERY BOTTOM of your existing App.css
+   ================================================================ */
+
+/* ================================================================
+   1. DARK MODE TOKEN OVERRIDES
+   Toggle by adding class "dark" to <html> or <body>
+   ================================================================ */
+body.dark,
+html.dark {
+  --pink:        #f07a92;
+  --pink-light:  #3a1e28;
+  --pink-mid:    #5a2d3c;
+  --pink-dark:   #f4a3b5;
+  --bg:          #1a0f14;
+  --card-bg:     #251519;
+  --text-main:   #f5e8ec;
+  --text-muted:  #b08090;
+  --green:       #5aad76;
+  --yellow:      #d4a82a;
+  --neutral:     #7a8fa6;
+
+  background: #1a0f14;
+  color: #f5e8ec;
+}
+
+/* Dark — sidebar */
+body.dark #sidebar,
+html.dark #sidebar {
+  background: linear-gradient(160deg, #2a1520 0%, #1e1018 100%);
+  border-right-color: rgba(232, 96, 122, 0.18);
+}
+
+body.dark .nav-item,
+html.dark .nav-item {
+  color: #b08090;
+}
+
+body.dark .nav-item:hover,
+html.dark .nav-item:hover {
+  background: rgba(232, 96, 122, 0.14);
+  color: #f4a3b5;
+}
+
+body.dark .logout-btn,
+html.dark .logout-btn {
+  background: rgba(232, 96, 122, 0.12);
+  color: #f4a3b5;
+}
+
+body.dark .logout-btn:hover,
+html.dark .logout-btn:hover {
+  background: rgba(232, 96, 122, 0.22);
+}
+
+/* Dark — topbar */
+body.dark #topbar,
+html.dark #topbar {
+  background: rgba(37, 21, 25, 0.92);
+  border-bottom-color: rgba(232, 96, 122, 0.15);
+}
+
+body.dark #topbar h2,
+html.dark #topbar h2 {
+  color: #f5e8ec;
+}
+
+/* Dark — bottom nav */
+body.dark #bottom-nav,
+html.dark #bottom-nav {
+  background: rgba(37, 21, 25, 0.96);
+  border-top-color: rgba(232, 96, 122, 0.15);
+}
+
+/* Dark — cards */
+body.dark .trends-card,
+body.dark .stat-card,
+body.dark .entry-card,
+body.dark .write-card,
+body.dark .feature-card,
+body.dark .action-card,
+body.dark .recent-entry,
+body.dark .pro-card,
+body.dark .profile-card,
+body.dark .profile-stat-card,
+body.dark .notif-item,
+body.dark .faq-item,
+body.dark .support-card,
+body.dark .settings-card,
+body.dark .modal-card,
+html.dark .trends-card,
+html.dark .stat-card,
+html.dark .entry-card,
+html.dark .write-card,
+html.dark .feature-card,
+html.dark .action-card,
+html.dark .recent-entry,
+html.dark .pro-card,
+html.dark .profile-card,
+html.dark .profile-stat-card,
+html.dark .notif-item,
+html.dark .faq-item,
+html.dark .support-card,
+html.dark .settings-card,
+html.dark .modal-card {
+  background: #251519;
+  border-color: rgba(232, 96, 122, 0.14);
+}
+
+/* Dark — content area */
+body.dark #content,
+html.dark #content {
+  background: #1a0f14;
+}
+
+/* Dark — hero */
+body.dark .hero-v2,
+html.dark .hero-v2 {
+  background: #2a1520;
+}
+
+body.dark .hero-v2-greeting,
+html.dark .hero-v2-greeting {
+  color: #f5e8ec;
+}
+
+/* Dark — inputs */
+body.dark .auth-input,
+body.dark .journal-input,
+body.dark .journal-input-v2,
+body.dark .write-area,
+body.dark .pro-input,
+body.dark .profile-input,
+body.dark .lp-input,
+body.dark .settings-input,
+html.dark .auth-input,
+html.dark .journal-input,
+html.dark .journal-input-v2,
+html.dark .write-area,
+html.dark .pro-input,
+html.dark .profile-input,
+html.dark .lp-input,
+html.dark .settings-input {
+  background: #2d1a22;
+  border-color: #5a2d3c;
+  color: #f5e8ec;
+}
+
+body.dark .auth-input::placeholder,
+body.dark .journal-input::placeholder,
+body.dark .journal-input-v2::placeholder,
+body.dark .pro-input::placeholder,
+html.dark .auth-input::placeholder,
+html.dark .journal-input::placeholder,
+html.dark .journal-input-v2::placeholder,
+html.dark .pro-input::placeholder {
+  color: #7a5060;
+}
+
+/* Dark — write footer bar */
+body.dark .write-footer-v2,
+html.dark .write-footer-v2 {
+  background: #2a1520;
+  border-color: #5a2d3c;
+}
+
+/* Dark — insights / alerts */
+body.dark .trends-insight,
+body.dark .mindbloom-insight,
+html.dark .trends-insight,
+html.dark .mindbloom-insight {
+  background: #2a1520;
+  border-color: #5a2d3c;
+  color: #f4a3b5;
+}
+
+/* Dark — bar tracks */
+body.dark .bar-track,
+html.dark .bar-track {
+  background: #3a2028;
+}
+
+/* Dark — profile dividers */
+body.dark .profile-info-row,
+html.dark .profile-info-row {
+  border-bottom-color: #3a2028;
+}
+
+/* Dark — pro divider */
+body.dark .pro-divider,
+html.dark .pro-divider {
+  background: #3a2028;
+}
+
+/* Dark — notif */
+body.dark .notif-item.unread,
+html.dark .notif-item.unread {
+  background: #2d1a22;
+  border-color: #5a2d3c;
+}
+
+/* Dark — lp auth panel */
+body.dark .lp-right,
+html.dark .lp-right {
+  background: #1e1018;
+  border-left-color: rgba(232, 96, 122, 0.15);
+}
+
+body.dark .lp-tabs,
+html.dark .lp-tabs {
+  background: #2a1520;
+}
+
+body.dark .lp-tab.active,
+html.dark .lp-tab.active {
+  background: #3a2028;
+}
+
+/* Dark — stress alert */
+body.dark .stress-alert-banner,
+html.dark .stress-alert-banner {
+  background: #2a1a10;
+  border-color: #8b4a00;
+}
+
+body.dark .stress-alert-tip,
+html.dark .stress-alert-tip {
+  background: #1e1208;
+  border-color: #6b3800;
+}
+
+body.dark .stress-alert-resources,
+html.dark .stress-alert-resources {
+  background: #1a1008;
+  border-top-color: #5a3000;
+}
+
+/* ================================================================
+   2. DARK MODE TOGGLE BUTTON
+   Place this button anywhere (e.g. Topbar) and call toggleDark()
+   ================================================================ */
+.dark-mode-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 96, 122, 0.2);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  color: var(--text-muted);
+}
+
+.dark-mode-toggle:hover {
+  background: var(--pink-light);
+  border-color: var(--pink-mid);
+  color: var(--pink);
+}
+
+
+/* ================================================================
+   3. COLORED SIDEBAR (replaces the all-white one)
+   ================================================================ */
+#sidebar {
+  background: linear-gradient(160deg, #fdf0f4 0%, #fff8fa 60%, #fde8ed 100%) !important;
+  border-right: 1px solid rgba(232, 96, 122, 0.14) !important;
+}
+
+/* Sidebar brand area accent */
+.sidebar-brand {
+  border-bottom: 1px solid rgba(232, 96, 122, 0.12) !important;
+  padding-bottom: 20px !important;
+}
+
+/* Active nav pill — keep the gradient */
+.nav-item.active {
+  background: linear-gradient(135deg, #e8607a, #f08ca2) !important;
+  color: white !important;
+  box-shadow: 0 6px 18px rgba(232, 96, 122, 0.28) !important;
+}
+
+/* Inactive nav items on the tinted sidebar */
+.nav-item:not(.active) {
+  color: #a06070 !important;
+}
+
+.nav-item:not(.active):hover {
+  background: rgba(232, 96, 122, 0.1) !important;
+  color: #e8607a !important;
+}
+
+/* Sidebar footer / logout */
+.sidebar-footer {
+  border-top: 1px solid rgba(232, 96, 122, 0.12) !important;
+}
+
+.logout-btn {
+  background: rgba(232, 96, 122, 0.08) !important;
+  color: #c0475f !important;
+}
+
+.logout-btn:hover {
+  background: rgba(232, 96, 122, 0.18) !important;
+}
+
+
+/* ================================================================
+   4. STRESS ALERT BANNER (used in Trends.jsx)
+   ================================================================ */
+.stress-alert-banner {
+  background: #fff8f0;
+  border: 1.5px solid #f5c36a;
+  border-radius: 20px;
+  padding: 20px 20px 0;
+  overflow: hidden;
+}
+
+.stress-alert-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.stress-alert-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fef3e2;
+  border: 1.5px solid #f5c36a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #c96a00;
+}
+
+.stress-alert-heading { flex: 1; }
+
+.stress-alert-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #7a4a00;
+  margin: 0 0 4px;
+}
+
+.stress-alert-sub {
+  font-size: 13px;
+  color: #9a6a20;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.stress-alert-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #c9a060;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s;
+}
+
+.stress-alert-dismiss:hover {
+  background: rgba(200, 120, 0, 0.1);
+  color: #7a4a00;
+}
+
+.stress-alert-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fef6e8;
+  border: 1px solid #f5d49a;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.stress-alert-tip-icon {
+  color: #c96a00;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.stress-alert-tip-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7a4a00;
+  margin: 0 0 3px;
+}
+
+.stress-alert-tip-desc {
+  font-size: 13px;
+  color: #9a6a20;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.stress-alert-resources {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  background: #fef0d8;
+  border-top: 1px solid #f5c36a;
+  padding: 12px 20px;
+  margin: 0 -20px;
+}
+
+.stress-alert-resources-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #7a4a00;
+  display: flex;
+  align-items: center;
+}
+
+.stress-alert-resource-item {
+  font-size: 12px;
+  color: #9a6a20;
+}
+
+.stress-alert-resource-item strong {
+  color: #7a4a00;
+}
+
+
+/* ================================================================
+   5. NOTIF ICON FIX — SVG instead of emoji
+   ================================================================ */
+.notif-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-empty-icon-wrap {
+  width: 72px;
+  height: 72px;
+  background: #fff0f4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+
+/* ================================================================
+   6. PROFILE EDIT BUTTON — icon + text
+   ================================================================ */
+.profile-edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ================================================================
+   7. PROFILE LOGOUT BUTTON — icon + text
+   ================================================================ */
+.profile-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ─────────────────────────────────────────
+   SIGNUP SECTION DIVIDERS
+───────────────────────────────────────── */
+.lp-section-divider {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a6672;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 4px 0 2px;
+  border-bottom: 1px solid #f4c0cf;
+  margin-bottom: 2px;
+}
+
+.lp-section-divider-note {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #a0aec0;
+  font-size: 11px;
+}
+
+.lp-ec-notice {
+  background: #fff8c5;
+  border: 1px solid #f5c842;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #856404;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────
+   PROFILE — EMERGENCY CONTACT BLOCK
+───────────────────────────────────────── */
+.profile-ec-block {
+  margin-top: 16px;
+  border-top: 1px dashed #f4c0cf;
+  padding-top: 14px;
+}
+
+.profile-ec-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c0475f;
+  margin-bottom: 10px;
+}
+
+.profile-ec-notice {
+  background: #fff8c5;
+  border: 1px solid #f5c842;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #856404;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.profile-form-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a6672;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #f4c0cf;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+/* ================================================================
+   MINDBLOOM — App.css ADDITIONS
+   Paste this at the VERY BOTTOM of your existing App.css
+   ================================================================ */
+
+/* ================================================================
+   1. DARK MODE TOKEN OVERRIDES
+   Toggle by adding class "dark" to <html> or <body>
+   ================================================================ */
+body.dark,
+html.dark {
+  --pink:        #f07a92;
+  --pink-light:  #3a1e28;
+  --pink-mid:    #5a2d3c;
+  --pink-dark:   #f4a3b5;
+  --bg:          #1a0f14;
+  --card-bg:     #251519;
+  --text-main:   #f5e8ec;
+  --text-muted:  #b08090;
+  --green:       #5aad76;
+  --yellow:      #d4a82a;
+  --neutral:     #7a8fa6;
+
+  background: #1a0f14;
+  color: #f5e8ec;
+}
+
+/* Dark — sidebar */
+body.dark #sidebar,
+html.dark #sidebar {
+  background: linear-gradient(160deg, #2a1520 0%, #1e1018 100%);
+  border-right-color: rgba(232, 96, 122, 0.18);
+}
+
+body.dark .nav-item,
+html.dark .nav-item {
+  color: #b08090;
+}
+
+body.dark .nav-item:hover,
+html.dark .nav-item:hover {
+  background: rgba(232, 96, 122, 0.14);
+  color: #f4a3b5;
+}
+
+body.dark .logout-btn,
+html.dark .logout-btn {
+  background: rgba(232, 96, 122, 0.12);
+  color: #f4a3b5;
+}
+
+body.dark .logout-btn:hover,
+html.dark .logout-btn:hover {
+  background: rgba(232, 96, 122, 0.22);
+}
+
+/* Dark — topbar */
+body.dark #topbar,
+html.dark #topbar {
+  background: rgba(37, 21, 25, 0.92);
+  border-bottom-color: rgba(232, 96, 122, 0.15);
+}
+
+body.dark #topbar h2,
+html.dark #topbar h2 {
+  color: #f5e8ec;
+}
+
+/* Dark — bottom nav */
+body.dark #bottom-nav,
+html.dark #bottom-nav {
+  background: rgba(37, 21, 25, 0.96);
+  border-top-color: rgba(232, 96, 122, 0.15);
+}
+
+/* Dark — cards */
+body.dark .trends-card,
+body.dark .stat-card,
+body.dark .entry-card,
+body.dark .write-card,
+body.dark .feature-card,
+body.dark .action-card,
+body.dark .recent-entry,
+body.dark .pro-card,
+body.dark .profile-card,
+body.dark .profile-stat-card,
+body.dark .notif-item,
+body.dark .faq-item,
+body.dark .support-card,
+body.dark .settings-card,
+body.dark .modal-card,
+html.dark .trends-card,
+html.dark .stat-card,
+html.dark .entry-card,
+html.dark .write-card,
+html.dark .feature-card,
+html.dark .action-card,
+html.dark .recent-entry,
+html.dark .pro-card,
+html.dark .profile-card,
+html.dark .profile-stat-card,
+html.dark .notif-item,
+html.dark .faq-item,
+html.dark .support-card,
+html.dark .settings-card,
+html.dark .modal-card {
+  background: #251519;
+  border-color: rgba(232, 96, 122, 0.14);
+}
+
+/* Dark — content area */
+body.dark #content,
+html.dark #content {
+  background: #1a0f14;
+}
+
+/* Dark — hero */
+body.dark .hero-v2,
+html.dark .hero-v2 {
+  background: #2a1520;
+}
+
+body.dark .hero-v2-greeting,
+html.dark .hero-v2-greeting {
+  color: #f5e8ec;
+}
+
+/* Dark — inputs */
+body.dark .auth-input,
+body.dark .journal-input,
+body.dark .journal-input-v2,
+body.dark .write-area,
+body.dark .pro-input,
+body.dark .profile-input,
+body.dark .lp-input,
+body.dark .settings-input,
+html.dark .auth-input,
+html.dark .journal-input,
+html.dark .journal-input-v2,
+html.dark .write-area,
+html.dark .pro-input,
+html.dark .profile-input,
+html.dark .lp-input,
+html.dark .settings-input {
+  background: #2d1a22;
+  border-color: #5a2d3c;
+  color: #f5e8ec;
+}
+
+body.dark .auth-input::placeholder,
+body.dark .journal-input::placeholder,
+body.dark .journal-input-v2::placeholder,
+body.dark .pro-input::placeholder,
+html.dark .auth-input::placeholder,
+html.dark .journal-input::placeholder,
+html.dark .journal-input-v2::placeholder,
+html.dark .pro-input::placeholder {
+  color: #7a5060;
+}
+
+/* Dark — write footer bar */
+body.dark .write-footer-v2,
+html.dark .write-footer-v2 {
+  background: #2a1520;
+  border-color: #5a2d3c;
+}
+
+/* Dark — insights / alerts */
+body.dark .trends-insight,
+body.dark .mindbloom-insight,
+html.dark .trends-insight,
+html.dark .mindbloom-insight {
+  background: #2a1520;
+  border-color: #5a2d3c;
+  color: #f4a3b5;
+}
+
+/* Dark — bar tracks */
+body.dark .bar-track,
+html.dark .bar-track {
+  background: #3a2028;
+}
+
+/* Dark — profile dividers */
+body.dark .profile-info-row,
+html.dark .profile-info-row {
+  border-bottom-color: #3a2028;
+}
+
+/* Dark — pro divider */
+body.dark .pro-divider,
+html.dark .pro-divider {
+  background: #3a2028;
+}
+
+/* Dark — notif */
+body.dark .notif-item.unread,
+html.dark .notif-item.unread {
+  background: #2d1a22;
+  border-color: #5a2d3c;
+}
+
+/* Dark — lp auth panel */
+body.dark .lp-right,
+html.dark .lp-right {
+  background: #1e1018;
+  border-left-color: rgba(232, 96, 122, 0.15);
+}
+
+body.dark .lp-tabs,
+html.dark .lp-tabs {
+  background: #2a1520;
+}
+
+body.dark .lp-tab.active,
+html.dark .lp-tab.active {
+  background: #3a2028;
+}
+
+/* Dark — stress alert */
+body.dark .stress-alert-banner,
+html.dark .stress-alert-banner {
+  background: #2a1a10;
+  border-color: #8b4a00;
+}
+
+body.dark .stress-alert-tip,
+html.dark .stress-alert-tip {
+  background: #1e1208;
+  border-color: #6b3800;
+}
+
+body.dark .stress-alert-resources,
+html.dark .stress-alert-resources {
+  background: #1a1008;
+  border-top-color: #5a3000;
+}
+
+/* ================================================================
+   2. DARK MODE TOGGLE BUTTON
+   Place this button anywhere (e.g. Topbar) and call toggleDark()
+   ================================================================ */
+.dark-mode-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 96, 122, 0.2);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+  color: var(--text-muted);
+}
+
+.dark-mode-toggle:hover {
+  background: var(--pink-light);
+  border-color: var(--pink-mid);
+  color: var(--pink);
+}
+
+
+/* ================================================================
+   3. COLORED SIDEBAR (replaces the all-white one)
+   ================================================================ */
+#sidebar {
+  background: linear-gradient(160deg, #fdf0f4 0%, #fff8fa 60%, #fde8ed 100%) !important;
+  border-right: 1px solid rgba(232, 96, 122, 0.14) !important;
+}
+
+/* Sidebar brand area accent */
+.sidebar-brand {
+  border-bottom: 1px solid rgba(232, 96, 122, 0.12) !important;
+  padding-bottom: 20px !important;
+}
+
+/* Active nav pill — keep the gradient */
+.nav-item.active {
+  background: linear-gradient(135deg, #e8607a, #f08ca2) !important;
+  color: white !important;
+  box-shadow: 0 6px 18px rgba(232, 96, 122, 0.28) !important;
+}
+
+/* Inactive nav items on the tinted sidebar */
+.nav-item:not(.active) {
+  color: #a06070 !important;
+}
+
+.nav-item:not(.active):hover {
+  background: rgba(232, 96, 122, 0.1) !important;
+  color: #e8607a !important;
+}
+
+/* Sidebar footer / logout */
+.sidebar-footer {
+  border-top: 1px solid rgba(232, 96, 122, 0.12) !important;
+}
+
+.logout-btn {
+  background: rgba(232, 96, 122, 0.08) !important;
+  color: #c0475f !important;
+}
+
+.logout-btn:hover {
+  background: rgba(232, 96, 122, 0.18) !important;
+}
+
+
+/* ================================================================
+   4. STRESS ALERT BANNER (used in Trends.jsx)
+   ================================================================ */
+.stress-alert-banner {
+  background: #fff8f0;
+  border: 1.5px solid #f5c36a;
+  border-radius: 20px;
+  padding: 20px 20px 0;
+  overflow: hidden;
+}
+
+.stress-alert-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.stress-alert-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fef3e2;
+  border: 1.5px solid #f5c36a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #c96a00;
+}
+
+.stress-alert-heading { flex: 1; }
+
+.stress-alert-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #7a4a00;
+  margin: 0 0 4px;
+}
+
+.stress-alert-sub {
+  font-size: 13px;
+  color: #9a6a20;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.stress-alert-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #c9a060;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s;
+}
+
+.stress-alert-dismiss:hover {
+  background: rgba(200, 120, 0, 0.1);
+  color: #7a4a00;
+}
+
+.stress-alert-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fef6e8;
+  border: 1px solid #f5d49a;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.stress-alert-tip-icon {
+  color: #c96a00;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.stress-alert-tip-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7a4a00;
+  margin: 0 0 3px;
+}
+
+.stress-alert-tip-desc {
+  font-size: 13px;
+  color: #9a6a20;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.stress-alert-resources {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  background: #fef0d8;
+  border-top: 1px solid #f5c36a;
+  padding: 12px 20px;
+  margin: 0 -20px;
+}
+
+.stress-alert-resources-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #7a4a00;
+  display: flex;
+  align-items: center;
+}
+
+.stress-alert-resource-item {
+  font-size: 12px;
+  color: #9a6a20;
+}
+
+.stress-alert-resource-item strong {
+  color: #7a4a00;
+}
+
+
+/* ================================================================
+   5. NOTIF ICON FIX — SVG instead of emoji
+   ================================================================ */
+.notif-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-empty-icon-wrap {
+  width: 72px;
+  height: 72px;
+  background: #fff0f4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+
+/* ================================================================
+   6. PROFILE EDIT BUTTON — icon + text
+   ================================================================ */
+.profile-edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ================================================================
+   7. PROFILE LOGOUT BUTTON — icon + text
+   ================================================================ */
+.profile-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ================================================================
+   SIDEBAR — REFINED STYLES
+   Paste this at the BOTTOM of App.css (replaces the old sidebar block)
+   ================================================================ */
+
+/* ── Reset / override the sidebar shell ── */
+#sidebar {
+  width: 248px !important;
+  padding: 0 !important;               /* we control padding per-section */
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  position: sticky !important;
+  top: 0 !important;
+  overflow: hidden !important;
+
+  /* Light: soft pink gradient */
+  background: linear-gradient(170deg, #fdf0f4 0%, #fff8fa 55%, #fde8ed 100%) !important;
+  border-right: 1px solid rgba(232, 96, 122, 0.13) !important;
+  box-shadow: 2px 0 16px rgba(232, 96, 122, 0.05) !important;
+}
+
+/* ── Brand block ── */
+.sidebar-brand {
+  padding: 28px 20px 20px !important;
+  border-bottom: 1px solid rgba(232, 96, 122, 0.11) !important;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.sidebar-brand h1 {
+  font-size: 20px !important;
+  font-family: Georgia, serif !important;
+  font-weight: 700 !important;
+  color: var(--pink) !important;
+  margin: 0 !important;
+  letter-spacing: -0.2px;
+}
+
+.sidebar-brand > p {
+  font-size: 11.5px !important;
+  color: var(--text-muted) !important;
+  margin: 0 0 0 44px !important;   /* indent to sit under the brand name */
+  letter-spacing: 0.2px;
+}
+
+/* ── Nav ── */
+.sidebar-nav {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 14px 12px 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  /* hide scrollbar but keep scroll */
+  scrollbar-width: none;
+}
+.sidebar-nav::-webkit-scrollbar { display: none; }
+
+/* nav items */
+.nav-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 11px !important;
+  padding: 9px 12px !important;
+  border-radius: 11px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  color: #a06070 !important;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease !important;
+  letter-spacing: 0.1px;
+}
+
+/* icon container for consistent alignment */
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  color: inherit;
+  transition: color 0.15s ease;
+}
+
+.nav-item:hover {
+  background: rgba(232, 96, 122, 0.09) !important;
+  color: var(--pink) !important;
+  transform: translateX(2px) !important;
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, #e8607a, #f08ca2) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(232, 96, 122, 0.26) !important;
+  transform: none !important;
+}
+
+.nav-item.active .nav-icon {
+  color: #fff !important;
+}
+
+/* divider between primary and utility nav */
+.sidebar-nav-divider {
+  height: 1px;
+  background: rgba(232, 96, 122, 0.1);
+  margin: 6px 4px;
+}
+
+/* ── Footer ── */
+.sidebar-footer {
+  flex-shrink: 0;
+  padding: 12px 12px 20px !important;
+  border-top: 1px solid rgba(232, 96, 122, 0.11) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 0 !important;
+}
+
+/* dark mode row */
+.sidebar-dark-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 11px;
+  background: rgba(232, 96, 122, 0.05);
+}
+
+.sidebar-dark-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* override the toggle button so it fits the row */
+.sidebar-footer .dark-mode-toggle {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(232, 96, 122, 0.18) !important;
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  flex-shrink: 0;
+}
+
+.sidebar-footer .dark-mode-toggle:hover {
+  background: rgba(232, 96, 122, 0.1) !important;
+  border-color: var(--pink-mid) !important;
+  color: var(--pink) !important;
+}
+
+/* sign out button */
+.logout-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 10px 16px !important;
+  border-radius: 11px !important;
+  border: 1px solid rgba(232, 96, 122, 0.18) !important;
+  background: rgba(232, 96, 122, 0.06) !important;
+  color: #c0475f !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease !important;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #e8607a, #f08ca2) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px rgba(232, 96, 122, 0.26) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ================================================================
+   DARK MODE — sidebar overrides
+   (your existing dark-mode block already has these, this makes them
+   more specific so they beat the !important rules above)
+   ================================================================ */
+html.dark #sidebar,
+body.dark #sidebar {
+  background: linear-gradient(170deg, #2a1520 0%, #1e1018 55%, #251420 100%) !important;
+  border-right-color: rgba(232, 96, 122, 0.16) !important;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .sidebar-brand,
+body.dark .sidebar-brand {
+  border-bottom-color: rgba(232, 96, 122, 0.12) !important;
+}
+
+html.dark .sidebar-brand h1,
+body.dark .sidebar-brand h1 {
+  color: #f07a92 !important;
+}
+
+html.dark .sidebar-brand > p,
+body.dark .sidebar-brand > p {
+  color: #7a5060 !important;
+}
+
+html.dark .nav-item,
+body.dark .nav-item {
+  color: #9a6878 !important;
+}
+
+html.dark .nav-item:hover,
+body.dark .nav-item:hover {
+  background: rgba(232, 96, 122, 0.14) !important;
+  color: #f4a3b5 !important;
+}
+
+html.dark .nav-item.active,
+body.dark .nav-item.active {
+  background: linear-gradient(135deg, #c0475f, #e8607a) !important;
+  color: #fff !important;
+}
+
+html.dark .sidebar-nav-divider,
+body.dark .sidebar-nav-divider {
+  background: rgba(232, 96, 122, 0.14) !important;
+}
+
+html.dark .sidebar-footer,
+body.dark .sidebar-footer {
+  border-top-color: rgba(232, 96, 122, 0.12) !important;
+}
+
+html.dark .sidebar-dark-row,
+body.dark .sidebar-dark-row {
+  background: rgba(232, 96, 122, 0.08) !important;
+}
+
+html.dark .sidebar-dark-label,
+body.dark .sidebar-dark-label {
+  color: #7a5060 !important;
+}
+
+html.dark .logout-btn,
+body.dark .logout-btn {
+  background: rgba(232, 96, 122, 0.1) !important;
+  color: #f4a3b5 !important;
+  border-color: rgba(232, 96, 122, 0.2) !important;
+}
+
+html.dark .logout-btn:hover,
+body.dark .logout-btn:hover {
+  background: linear-gradient(135deg, #c0475f, #e8607a) !important;
+  color: #fff !important;
+}
+/* ================================================================
+   MINDBLOOM — SIDEBAR STYLES
+   Paste at the VERY BOTTOM of App.css.
+   These rules override everything above them via specificity + !important.
+   ================================================================ */
+
+/* ── Shell ──────────────────────────────────────────────────── */
+#sidebar {
+  width: 244px;
+  min-height: 100vh;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+
+  background: linear-gradient(175deg, #fef2f5 0%, #fff9fb 50%, #feeaef 100%);
+  border-right: 1px solid rgba(232, 96, 122, 0.12);
+  box-shadow: 1px 0 12px rgba(232, 96, 122, 0.06);
+}
+
+/* ── Brand ──────────────────────────────────────────────────── */
+.sb-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 22px 18px 16px;          /* tight to the top */
+  border-bottom: 1px solid rgba(232, 96, 122, 0.10);
+  flex-shrink: 0;
+}
+
+.sb-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.sb-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sb-brand-name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #e8607a;
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+
+.sb-brand-sub {
+  font-size: 11px;
+  color: #b08898;
+  padding-left: 41px;              /* aligns under the brand name */
+  letter-spacing: 0.15px;
+  line-height: 1;
+}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.sb-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  scrollbar-width: none;
+}
+.sb-nav::-webkit-scrollbar { display: none; }
+
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #a07080;
+  text-decoration: none;
+  transition: background 0.14s, color 0.14s, transform 0.14s;
+  cursor: pointer;
+}
+
+.sb-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.sb-label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.sb-item:hover {
+  background: rgba(232, 96, 122, 0.08);
+  color: #e8607a;
+  transform: translateX(2px);
+}
+.sb-item:hover .sb-icon { opacity: 1; }
+
+.sb-active {
+  background: linear-gradient(135deg, #e8607a 0%, #f0849a 100%);
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 3px 12px rgba(232, 96, 122, 0.28);
+  transform: none !important;
+}
+.sb-active .sb-icon { opacity: 1; color: #fff; }
+
+/* divider between primary and utility */
+.sb-sep {
+  height: 1px;
+  background: rgba(232, 96, 122, 0.09);
+  margin: 5px 4px;
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.sb-footer {
+  flex-shrink: 0;
+  padding: 10px 10px 18px;
+  border-top: 1px solid rgba(232, 96, 122, 0.10);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* dark mode row */
+.sb-dark-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 11px;
+  border-radius: 10px;
+  background: rgba(232, 96, 122, 0.05);
+}
+
+.sb-dark-label {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #b08898;
+}
+
+/* size the toggle to fit */
+.sb-footer .dark-mode-toggle {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(232, 96, 122, 0.15) !important;
+  background: transparent !important;
+  color: #b08898 !important;
+  transition: background 0.15s, color 0.15s !important;
+}
+.sb-footer .dark-mode-toggle:hover {
+  background: rgba(232, 96, 122, 0.10) !important;
+  color: #e8607a !important;
+}
+
+/* sign out */
+.sb-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(232, 96, 122, 0.16);
+  background: rgba(232, 96, 122, 0.05);
+  color: #c0475f;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.sb-logout:hover {
+  background: linear-gradient(135deg, #e8607a, #f0849a);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 3px 12px rgba(232, 96, 122, 0.28);
+}
+
+/* ================================================================
+   DARK MODE — warm rose-brown palette (not purple!)
+   Targets html.dark (set by DarkModeToggle)
+   ================================================================ */
+
+html.dark #sidebar,
+body.dark #sidebar {
+  background: #1c1014;              /* deep warm almost-black */
+  border-right: 1px solid rgba(232, 96, 122, 0.14);
+  box-shadow: 1px 0 20px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .sb-brand,
+body.dark .sb-brand {
+  border-bottom-color: rgba(232, 96, 122, 0.12);
+}
+
+html.dark .sb-brand-name,
+body.dark .sb-brand-name {
+  color: #f08a9e;
+}
+
+html.dark .sb-brand-sub,
+body.dark .sb-brand-sub {
+  color: #6a4050;
+}
+
+html.dark .sb-item,
+body.dark .sb-item {
+  color: #7a5060;
+}
+
+html.dark .sb-item:hover,
+body.dark .sb-item:hover {
+  background: rgba(232, 96, 122, 0.12);
+  color: #f4a3b5;
+}
+
+html.dark .sb-active,
+body.dark .sb-active {
+  background: linear-gradient(135deg, #c0475f, #e8607a) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 14px rgba(192, 71, 95, 0.35);
+}
+
+html.dark .sb-sep,
+body.dark .sb-sep {
+  background: rgba(232, 96, 122, 0.10);
+}
+
+html.dark .sb-footer,
+body.dark .sb-footer {
+  border-top-color: rgba(232, 96, 122, 0.11);
+}
+
+html.dark .sb-dark-row,
+body.dark .sb-dark-row {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+html.dark .sb-dark-label,
+body.dark .sb-dark-label {
+  color: #5a3a46;
+}
+
+html.dark .sb-logout,
+body.dark .sb-logout {
+  background: rgba(232, 96, 122, 0.08);
+  color: #d4829a;
+  border-color: rgba(232, 96, 122, 0.16);
+}
+html.dark .sb-logout:hover,
+body.dark .sb-logout:hover {
+  background: linear-gradient(135deg, #c0475f, #e8607a);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ── Also fix the page bg in dark mode ────────────────────────
+   The main content area was showing a purple/cool dark.
+   Force it warm.
+   ──────────────────────────────────────────────────────────── */
+html.dark,
+html.dark body,
+body.dark,
+body.dark body {
+  background: #180e12 !important;
+}
+
+html.dark #main,
+body.dark #main {
+  background: #180e12;
+}
+
+html.dark #content,
+body.dark #content {
+  background: #180e12;
+}
+
+html.dark #topbar,
+body.dark #topbar {
+  background: rgba(24, 14, 18, 0.95);
+  border-bottom-color: rgba(232, 96, 122, 0.12);
+}
+
+/* Cards: warm dark brown, not purple */
+html.dark .action-card,
+html.dark .recent-entry,
+html.dark .entry-card,
+html.dark .write-card,
+html.dark .feature-card,
+html.dark .trends-card,
+html.dark .stat-card,
+html.dark .pro-card,
+html.dark .profile-card,
+html.dark .profile-stat-card,
+html.dark .notif-item,
+html.dark .faq-item,
+html.dark .support-card,
+html.dark .settings-card,
+html.dark .modal-card,
+body.dark .action-card,
+body.dark .recent-entry,
+body.dark .entry-card,
+body.dark .write-card,
+body.dark .feature-card,
+body.dark .trends-card,
+body.dark .stat-card,
+body.dark .pro-card,
+body.dark .profile-card,
+body.dark .profile-stat-card,
+body.dark .notif-item,
+body.dark .faq-item,
+body.dark .support-card,
+body.dark .settings-card,
+body.dark .modal-card {
+  background: #221218 !important;
+  border-color: rgba(232, 96, 122, 0.11) !important;
+}
+
+/* Hero banner */
+html.dark .hero-v2,
+body.dark .hero-v2 {
+  background: #2a1520 !important;
+}
+
+/* Inputs */
+html.dark .journal-input,
+html.dark .journal-input-v2,
+html.dark .auth-input,
+html.dark .pro-input,
+html.dark .settings-input,
+html.dark .profile-input,
+body.dark .journal-input,
+body.dark .journal-input-v2,
+body.dark .auth-input,
+body.dark .pro-input,
+body.dark .settings-input,
+body.dark .profile-input {
+  background: #2a1820 !important;
+  border-color: rgba(232, 96, 122, 0.18) !important;
+  color: #f0e0e6 !important;
+}
+
+/* Write footer bar */
+html.dark .write-footer-v2,
+body.dark .write-footer-v2 {
+  background: #221218 !important;
+  border-color: rgba(232, 96, 122, 0.14) !important;
+}
+
+/* Insight boxes */
+html.dark .trends-insight,
+html.dark .mindbloom-insight,
+body.dark .trends-insight,
+body.dark .mindbloom-insight {
+  background: #2a1520 !important;
+  border-color: rgba(232, 96, 122, 0.18) !important;
+}
+
+/* Bar tracks */
+html.dark .bar-track,
+body.dark .bar-track {
+  background: #2e1820 !important;
+}
+
+/* ================================================================
+   MINDBLOOM — DARK MODE COMPLETE FIX
+   Replace ALL previous dark-mode CSS blocks in App.css with this.
+   Delete any existing  body.dark / html.dark  rules first, then
+   paste this entire block at the very bottom of App.css.
+   ================================================================ */
+
+/* ── 1. BASE TOKENS ─────────────────────────────────────────── */
+html.dark,
+html.dark body,
+body.dark,
+body.dark body {
+  /* colour tokens */
+  --pink:       #f07a92;
+  --pink-light: #3d1f28;
+  --pink-mid:   #6b3348;
+  --pink-dark:  #f4a3b5;
+  --bg:         #12090d;
+  --card-bg:    #1e1118;
+  --text-main:  #f0e4e8;
+  --text-muted: #a07888;
+  --green:      #5aad76;
+  --yellow:     #d4a82a;
+  --neutral:    #7a8fa6;
+
+  background-color: #12090d !important;
+  color: #f0e4e8;
+}
+
+/* ── 2. LAYOUT SHELLS ───────────────────────────────────────── */
+html.dark #app,
+body.dark  #app  { background: #12090d; }
+
+html.dark #main,
+body.dark  #main { background: #12090d; }
+
+html.dark #content,
+body.dark  #content {
+  background: #12090d;
+  color: #f0e4e8;
+}
+
+/* ── 3. TOPBAR ──────────────────────────────────────────────── */
+html.dark #topbar,
+body.dark  #topbar {
+  background: rgba(20, 10, 14, 0.97);
+  border-bottom: 1px solid rgba(232, 96, 122, 0.15);
+}
+html.dark #topbar h2,
+body.dark  #topbar h2 { color: #f0e4e8; }
+html.dark #topbar p,
+body.dark  #topbar p  { color: #9a6878; }
+
+/* ── 4. SIDEBAR ─────────────────────────────────────────────── */
+html.dark #sidebar,
+body.dark  #sidebar {
+  background: #1a0e13 !important;
+  border-right: 1px solid rgba(232, 96, 122, 0.14) !important;
+  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.4) !important;
+}
+html.dark .sb-brand,
+body.dark  .sb-brand { border-bottom-color: rgba(232, 96, 122, 0.12) !important; }
+html.dark .sb-brand-name,
+body.dark  .sb-brand-name { color: #f08a9e !important; }
+html.dark .sb-brand-sub,
+body.dark  .sb-brand-sub  { color: #6a4050 !important; }
+
+html.dark .sb-item,
+body.dark  .sb-item { color: #8a6070 !important; }
+html.dark .sb-item:hover,
+body.dark  .sb-item:hover {
+  background: rgba(240, 122, 146, 0.12) !important;
+  color: #f4a3b5 !important;
+}
+html.dark .sb-active,
+body.dark  .sb-active {
+  background: linear-gradient(135deg, #c0475f, #e8607a) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 14px rgba(192, 71, 95, 0.4) !important;
+}
+html.dark .sb-sep,
+body.dark  .sb-sep { background: rgba(232, 96, 122, 0.10) !important; }
+
+html.dark .sb-footer,
+body.dark  .sb-footer { border-top-color: rgba(232, 96, 122, 0.11) !important; }
+html.dark .sb-dark-row,
+body.dark  .sb-dark-row { background: rgba(255,255,255,0.03) !important; }
+html.dark .sb-dark-label,
+body.dark  .sb-dark-label { color: #6a4050 !important; }
+html.dark .sb-logout,
+body.dark  .sb-logout {
+  background: rgba(232, 96, 122, 0.09) !important;
+  color: #d4829a !important;
+  border-color: rgba(232, 96, 122, 0.18) !important;
+}
+html.dark .sb-logout:hover,
+body.dark  .sb-logout:hover {
+  background: linear-gradient(135deg, #c0475f, #e8607a) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+/* ── 5. BOTTOM NAV (mobile) ─────────────────────────────────── */
+html.dark #bottom-nav,
+body.dark  #bottom-nav {
+  background: rgba(20, 10, 14, 0.97);
+  border-top: 1px solid rgba(232, 96, 122, 0.14);
+}
+html.dark .bottom-link,
+body.dark  .bottom-link { color: #6a4050; }
+html.dark .bottom-link.active,
+body.dark  .bottom-link.active { color: #f08a9e; }
+
+/* ── 6. GENERIC CARD SURFACE ────────────────────────────────── */
+/*
+   Layer system (dark):
+   Page bg      #12090d  (darkest)
+   Card bg      #1e1118  (+1 step lighter)
+   Card hover   #261520  (+2 steps)
+   Input bg     #2a1820  (slightly more saturated)
+*/
+html.dark .trends-card,
+html.dark .stat-card,
+html.dark .entry-card,
+html.dark .write-card,
+html.dark .feature-card,
+html.dark .action-card,
+html.dark .recent-entry,
+html.dark .pro-card,
+html.dark .profile-card,
+html.dark .profile-stat-card,
+html.dark .notif-item,
+html.dark .faq-item,
+html.dark .support-card,
+html.dark .settings-card,
+html.dark .modal-card,
+html.dark .write-tips-card,
+html.dark .lp-feature-card,
+body.dark .trends-card,
+body.dark .stat-card,
+body.dark .entry-card,
+body.dark .write-card,
+body.dark .feature-card,
+body.dark .action-card,
+body.dark .recent-entry,
+body.dark .pro-card,
+body.dark .profile-card,
+body.dark .profile-stat-card,
+body.dark .notif-item,
+body.dark .faq-item,
+body.dark .support-card,
+body.dark .settings-card,
+body.dark .modal-card,
+body.dark .write-tips-card,
+body.dark .lp-feature-card {
+  background: #1e1118 !important;
+  border-color: rgba(232, 96, 122, 0.13) !important;
+  color: #f0e4e8;
+}
+
+/* hover lift keeps a visible step */
+html.dark .entry-card:hover,
+html.dark .action-card:hover,
+html.dark .recent-entry:hover,
+html.dark .feature-card:hover,
+html.dark .faq-item:hover,
+body.dark .entry-card:hover,
+body.dark .action-card:hover,
+body.dark .recent-entry:hover,
+body.dark .feature-card:hover,
+body.dark .faq-item:hover {
+  background: #261520 !important;
+  border-color: rgba(232, 96, 122, 0.22) !important;
+}
+
+/* ── 7. TEXT INSIDE CARDS ───────────────────────────────────── */
+html.dark .action-title,
+html.dark .home-v2-section-title,
+html.dark .hero-v2-greeting,
+html.dark .write-card h1,
+html.dark .write-header h1,
+html.dark .history-header h1,
+html.dark .trends-header h1,
+html.dark .profile-header h1,
+html.dark .profile-name,
+html.dark .notif-item-title,
+html.dark .faq-question,
+html.dark .support-title,
+html.dark .settings-title,
+html.dark .pro-title,
+html.dark .stat-value,
+html.dark .profile-stat-value,
+html.dark .result-tone,
+html.dark h1, html.dark h2, html.dark h3,
+body.dark .action-title,
+body.dark .home-v2-section-title,
+body.dark .hero-v2-greeting,
+body.dark h1, body.dark h2, body.dark h3 {
+  color: #f0e4e8 !important;
+}
+
+html.dark .action-desc,
+html.dark .hero-v2-sub,
+html.dark .write-card > p,
+html.dark .write-header p,
+html.dark .history-header p,
+html.dark .trends-header p,
+html.dark .profile-header p,
+html.dark .profile-email,
+html.dark .entry-text,
+html.dark .recent-entry-text,
+html.dark .notif-message,
+html.dark .notif-time,
+html.dark .faq-answer,
+html.dark .stat-sub,
+html.dark .profile-stat-label,
+html.dark .settings-subtitle,
+html.dark .support-subtitle,
+body.dark .action-desc,
+body.dark .hero-v2-sub,
+body.dark .entry-text,
+body.dark .recent-entry-text {
+  color: #9a6878 !important;
+}
+
+/* entry date & recent date */
+html.dark .entry-date,
+html.dark .recent-entry-date,
+body.dark .entry-date,
+body.dark .recent-entry-date { color: #d4a0b0 !important; }
+
+/* entry arrow */
+html.dark .recent-entry-arrow,
+body.dark .recent-entry-arrow { color: #4a2535 !important; }
+
+/* ── 8. HERO BANNER ─────────────────────────────────────────── */
+html.dark .hero-v2,
+body.dark  .hero-v2 {
+  background: #28141e !important;
+  border: 1px solid rgba(232, 96, 122, 0.16) !important;
+}
+html.dark .hero-v2-greeting,
+body.dark  .hero-v2-greeting { color: #f0e4e8 !important; }
+html.dark .hero-v2-sub,
+body.dark  .hero-v2-sub      { color: #9a6878 !important; }
+html.dark .hero-v2-date,
+body.dark  .hero-v2-date     { color: #f08a9e !important; }
+
+/* ── 9. ACTION CARDS (3-up grid on home) ────────────────────── */
+html.dark .action-icon,
+body.dark  .action-icon {
+  /* override the inline emoji bg colours */
+  background: rgba(232, 96, 122, 0.12) !important;
+}
+
+/* ── 10. INPUTS & TEXTAREAS ─────────────────────────────────── */
+html.dark input,
+html.dark textarea,
+html.dark select,
+html.dark .auth-input,
+html.dark .journal-input,
+html.dark .journal-input-v2,
+html.dark .pro-input,
+html.dark .settings-input,
+html.dark .profile-input,
+html.dark .lp-input,
+html.dark .support-textarea,
+body.dark input,
+body.dark textarea,
+body.dark select,
+body.dark .auth-input,
+body.dark .journal-input,
+body.dark .journal-input-v2,
+body.dark .pro-input,
+body.dark .settings-input,
+body.dark .profile-input,
+body.dark .lp-input,
+body.dark .support-textarea {
+  background: #2a1820 !important;
+  border-color: rgba(232, 96, 122, 0.20) !important;
+  color: #f0e4e8 !important;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder,
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #5a3040 !important;
+}
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus,
+body.dark input:focus,
+body.dark textarea:focus,
+body.dark select:focus {
+  border-color: #f08a9e !important;
+  box-shadow: 0 0 0 3px rgba(240, 122, 146, 0.12) !important;
+  outline: none !important;
+}
+
+/* write footer bar */
+html.dark .write-footer-v2,
+body.dark  .write-footer-v2 {
+  background: #1e1118 !important;
+  border-color: rgba(232, 96, 122, 0.16) !important;
+}
+html.dark .word-count,
+body.dark  .word-count { color: #6a4050 !important; }
+
+/* ── 11. INSIGHT / ALERT BOXES ──────────────────────────────── */
+html.dark .trends-insight,
+html.dark .mindbloom-insight,
+body.dark  .trends-insight,
+body.dark  .mindbloom-insight {
+  background: #28141e !important;
+  border-color: rgba(232, 96, 122, 0.20) !important;
+  color: #f4a3b5 !important;
+}
+html.dark .mindbloom-insight-label,
+body.dark  .mindbloom-insight-label { color: #f4a3b5 !important; }
+html.dark .mindbloom-insight p,
+body.dark  .mindbloom-insight p     { color: #c08090 !important; }
+
+/* ── 12. SENTIMENT BARS ─────────────────────────────────────── */
+html.dark .bar-track,
+body.dark  .bar-track { background: #2e1820 !important; }
+
+html.dark .sentiment-row-label,
+body.dark  .sentiment-row-label { color: #f0e4e8 !important; }
+html.dark .sentiment-row-label span:last-child,
+body.dark  .sentiment-row-label span:last-child { color: #9a6878 !important; }
+
+/* ── 13. RESULT CARD ────────────────────────────────────────── */
+html.dark .result-card,
+body.dark  .result-card {
+  background: #1e1118 !important;
+  border-color: rgba(232, 96, 122, 0.14) !important;
+}
+html.dark .result-label,
+body.dark  .result-label { color: #9a6878 !important; }
+html.dark .result-tone,
+body.dark  .result-tone  { color: #f0e4e8 !important; }
+
+/* ── 14. TONE CHIPS ─────────────────────────────────────────── */
+html.dark .tone-chip.positive,
+body.dark  .tone-chip.positive { background: #0e2a18 !important; color: #5aad76 !important; }
+html.dark .tone-chip.negative,
+body.dark  .tone-chip.negative { background: #2e0f18 !important; color: #f08a9e !important; }
+html.dark .tone-chip.neutral,
+body.dark  .tone-chip.neutral  { background: #1a1e26 !important; color: #7a8fa6 !important; }
+
+/* ── 15. PROFILE PAGE ───────────────────────────────────────── */
+html.dark .profile-page,
+body.dark  .profile-page { background: transparent; }
+
+html.dark .profile-identity,
+body.dark  .profile-identity { color: #f0e4e8; }
+
+html.dark .profile-info-row,
+body.dark  .profile-info-row {
+  border-bottom-color: #2e1820 !important;
+}
+html.dark .profile-info-label,
+body.dark  .profile-info-label { color: #9a6878 !important; }
+html.dark .profile-info-value,
+body.dark  .profile-info-value { color: #f0e4e8 !important; }
+
+html.dark .profile-card-title,
+body.dark  .profile-card-title { color: #f0e4e8 !important; }
+
+/* ── 16. SETTINGS / NOTIFICATIONS / SUPPORT ─────────────────── */
+html.dark .settings-label,
+html.dark .pro-label,
+body.dark  .settings-label,
+body.dark  .pro-label { color: #c09098 !important; }
+
+html.dark .settings-hint,
+html.dark .pro-hint,
+body.dark  .settings-hint,
+body.dark  .pro-hint { color: #6a4050 !important; }
+
+html.dark .settings-toggle-title,
+html.dark .pro-toggle-title,
+body.dark  .settings-toggle-title,
+body.dark  .pro-toggle-title { color: #f0e4e8 !important; }
+
+html.dark .settings-toggle-desc,
+html.dark .pro-toggle-desc,
+body.dark  .settings-toggle-desc,
+body.dark  .pro-toggle-desc { color: #9a6878 !important; }
+
+html.dark .settings-divider,
+html.dark .pro-divider,
+body.dark  .settings-divider,
+body.dark  .pro-divider { background: #2e1820 !important; border-color: #2e1820 !important; }
+
+html.dark .pro-card-footer,
+body.dark  .pro-card-footer {
+  background: #221318 !important;
+  border-top-color: #2e1820 !important;
+}
+
+html.dark .notif-icon-wrap,
+body.dark  .notif-icon-wrap { background: #2a1820 !important; }
+
+/* ── 17. MODAL ──────────────────────────────────────────────── */
+html.dark .modal-overlay,
+body.dark  .modal-overlay { background: rgba(0,0,0,0.7); }
+html.dark .modal-card,
+body.dark  .modal-card {
+  background: #1e1118 !important;
+  border: 1px solid rgba(232,96,122,0.18) !important;
+}
+html.dark .modal-title,
+body.dark  .modal-title { color: #f0e4e8 !important; }
+html.dark .modal-subtitle,
+body.dark  .modal-subtitle { color: #9a6878 !important; }
+html.dark .modal-point,
+body.dark  .modal-point {
+  background: #28141e !important;
+  border-color: rgba(232,96,122,0.14) !important;
+}
+html.dark .modal-point p,
+body.dark  .modal-point p { color: #9a6878 !important; }
+
+/* ── 18. STRESS ALERT ───────────────────────────────────────── */
+html.dark .stress-alert-banner,
+body.dark  .stress-alert-banner {
+  background: #1e1508 !important;
+  border-color: rgba(245, 195, 106, 0.3) !important;
+}
+html.dark .stress-alert-tip,
+body.dark  .stress-alert-tip {
+  background: #1a1206 !important;
+  border-color: rgba(245, 195, 106, 0.2) !important;
+}
+html.dark .stress-alert-resources,
+body.dark  .stress-alert-resources {
+  background: #161004 !important;
+  border-top-color: rgba(245, 195, 106, 0.2) !important;
+}
+
+/* ── 19. HISTORY FILTERS ────────────────────────────────────── */
+html.dark .history-filter-btn,
+body.dark  .history-filter-btn {
+  background: #1e1118 !important;
+  border-color: rgba(232,96,122,0.18) !important;
+  color: #9a6878 !important;
+}
+html.dark .history-filter-btn:hover,
+body.dark  .history-filter-btn:hover {
+  border-color: #f08a9e !important;
+  color: #f08a9e !important;
+}
+
+/* ── 20. AUTH CARD ──────────────────────────────────────────── */
+html.dark .auth-card,
+body.dark  .auth-card {
+  background: #1e1118 !important;
+  border-color: rgba(232,96,122,0.16) !important;
+}
+html.dark .auth-logo-title,
+body.dark  .auth-logo-title { color: #f0e4e8 !important; }
+
+/* ── 21. LANDING PAGE (lp-right panel) ──────────────────────── */
+html.dark .lp-right,
+body.dark  .lp-right {
+  background: #1a0e13 !important;
+  border-left-color: rgba(232,96,122,0.14) !important;
+}
+html.dark .lp-tabs,
+body.dark  .lp-tabs { background: #28141e !important; }
+html.dark .lp-tab,
+body.dark  .lp-tab  { color: #9a6878 !important; }
+html.dark .lp-tab.active,
+body.dark  .lp-tab.active {
+  background: #3a1e28 !important;
+  color: #f08a9e !important;
+}
+
+/* ── 22. DARK MODE TOGGLE BUTTON ────────────────────────────── */
+.dark-mode-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 96, 122, 0.2);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.dark-mode-toggle:hover {
+  background: var(--pink-light);
+  border-color: var(--pink-mid);
+  color: var(--pink);
+}
+
+/* ── 23. SCROLLBAR (dark) ───────────────────────────────────── */
+html.dark ::-webkit-scrollbar,
+body.dark  ::-webkit-scrollbar { width: 6px; height: 6px; }
+html.dark ::-webkit-scrollbar-track,
+body.dark  ::-webkit-scrollbar-track { background: #12090d; }
+html.dark ::-webkit-scrollbar-thumb,
+body.dark  ::-webkit-scrollbar-thumb {
+  background: #3a1e28;
+  border-radius: 4px;
+}
+html.dark ::-webkit-scrollbar-thumb:hover,
+body.dark  ::-webkit-scrollbar-thumb:hover { background: #5a2d3c; }
+/* ================================================================
+   APP.CSS ADDITIONS
+   Paste at the VERY BOTTOM of App.css
+   ================================================================ */
+
+/* ── Remove bottom nav entirely ─────────────────────────────── */
+#bottom-nav { display: none !important; }
+
+/* Desktop: remove the bottom padding that existed for the bottom nav */
+#main { padding-bottom: 0 !important; }
+@media (max-width: 767px) {
+  #content { padding-bottom: 24px !important; }
+}
+
+/* ── Sidebar toggle — desktop always visible ─────────────────── */
+@media (min-width: 768px) {
+  #sidebar {
+    /* always shown on desktop; ignore the open/closed class */
+    transform: translateX(0) !important;
+    position: sticky !important;
+    box-shadow: none !important;
+  }
+
+  /* Hide the close button on desktop */
+  .sb-close-btn { display: none !important; }
+
+  /* Hide the hamburger on desktop */
+  .topbar-menu-btn { display: none !important; }
+
+  /* No backdrop needed on desktop */
+  .sb-backdrop { display: none !important; }
+}
+
+/* ── Sidebar toggle — mobile drawer ──────────────────────────── */
+@media (max-width: 767px) {
+  /* Sidebar slides in from the left */
+  #sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    z-index: 500 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.28s ease !important;
+    box-shadow: none !important;
+    /* make sure the sidebar doesn't shrink the main content */
+    width: 260px !important;
+  }
+
+  #sidebar.sb-open {
+    transform: translateX(0) !important;
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  /* Backdrop overlay */
+  .sb-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
+    z-index: 499;
+    animation: sbFadeIn 0.2s ease;
+  }
+
+  @keyframes sbFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Main content fills full width on mobile */
+  #main { width: 100% !important; }
+
+  /* Show the hamburger button on mobile */
+  .topbar-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text-muted);
+    margin-right: 12px;
+    flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .topbar-menu-btn:hover {
+    background: rgba(232, 96, 122, 0.09);
+    color: var(--pink);
+  }
+
+  /* Close button inside sidebar — mobile only */
+  .sb-close-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .sb-close-btn:hover {
+    background: rgba(232, 96, 122, 0.1);
+    color: var(--pink);
+  }
+}
+
+/* ── Topbar layout — space for hamburger ─────────────────────── */
+#topbar {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Default: hamburger hidden; shown via media query above */
+.topbar-menu-btn { display: none; }
+
+/* ── Dark mode: backdrop darkens more ───────────────────────── */
+html.dark .sb-backdrop,
+body.dark  .sb-backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* Entry card */
+.entry-card {
+  position: relative;
+  padding: 24px 28px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Checkbox wrapper */
+.entry-checkbox-wrap {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Checkbox circle */
+.entry-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+
+  border: 2px solid #d97a92;
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* Checked state */
+.entry-checkbox.checked {
+  background: #e8607a;
+  border-color: #e8607a;
+  color: white;
+}
+
+/* Check icon */
+.entry-checkbox span {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-right: 42px;
+}

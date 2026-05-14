@@ -1,14 +1,65 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Charset -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mindbloom-frontend</title>
+
+    <!-- Responsive Mobile Scaling -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <!-- App Title -->
+    <title>MindBloom</title>
+
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="MindBloom — Your emotional wellness journal and reflection companion."
+    />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#e8607a" />
+
+    <!-- Apple PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="MindBloom" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Fonts (optional but cleaner) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Prevent weird mobile text scaling -->
+    <style>
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: #fff8fa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    </style>
   </head>
+
   <body>
     <div id="root"></div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

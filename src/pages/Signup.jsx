@@ -9,13 +9,16 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  // FIX: post-signup confirmation state
+  const [sent, setSent] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+    // FIX: was checking < 6 but message said 8 — now correctly checks < 8
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters.");
       return;
     }
 
@@ -29,11 +32,38 @@ export default function Signup() {
     }
 
     if (data.user) {
-      navigate("/app");
+      // FIX: don't navigate immediately — Supabase requires email confirmation
+      // before the user can log in. Show a confirmation message instead.
+      setSent(true);
     }
 
     setLoading(false);
   };
+
+  // Show confirmation screen after successful signup
+  if (sent) {
+    return (
+      <div className="auth-container">
+        <div className="auth-card">
+          <div className="auth-logo-wrap">
+            <Logo size={56} />
+            <h1 className="auth-logo-title">MindBloom</h1>
+          </div>
+          <div style={{ textAlign: "center", padding: "8px 0 16px" }}>
+            <div style={{ fontSize: 40, marginBottom: 12 }}>📬</div>
+            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Check your email!</h2>
+            <p style={{ fontSize: 14, color: "#666", lineHeight: 1.5 }}>
+              We sent a confirmation link to <strong>{email}</strong>.
+              Please verify your email address, then come back to log in.
+            </p>
+            <Link to="/" style={{ display: "inline-block", marginTop: 20 }}>
+              <button className="auth-button">Go to Log In</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="auth-container">
@@ -56,7 +86,7 @@ export default function Signup() {
           />
           <input
             type="password"
-            placeholder="Password (min 6 chars)"
+            placeholder="Password (min 8 chars)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="auth-input"

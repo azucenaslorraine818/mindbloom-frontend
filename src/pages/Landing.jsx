@@ -6,7 +6,100 @@ const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 };
 
-/* ── CONSENT MODAL ─────────────────────────────────────────── */
+/* ── PASSWORD VALIDATION ──────────────────────────────────────── */
+function validatePassword(pw) {
+  return {
+    length:    pw.length >= 8,
+    uppercase: /[A-Z]/.test(pw),
+    lowercase: /[a-z]/.test(pw),
+    number:    /[0-9]/.test(pw),
+    special:   /[^A-Za-z0-9]/.test(pw),
+  };
+}
+
+function PasswordStrength({ password }) {
+  if (!password) return null;
+  const v = validatePassword(password);
+  const rules = [
+    { key: "length",    label: "At least 8 characters" },
+    { key: "uppercase", label: "1 uppercase letter (A–Z)" },
+    { key: "lowercase", label: "1 lowercase letter (a–z)" },
+    { key: "number",    label: "1 number (0–9)" },
+    { key: "special",   label: "1 special character (!@#$…)" },
+  ];
+  const passed = Object.values(v).filter(Boolean).length;
+  const strength = passed <= 2 ? "Weak" : passed <= 4 ? "Fair" : "Strong";
+  const barColor = passed <= 2 ? "#e8607a" : passed <= 4 ? "#f5c842" : "#6dbf8a";
+  return (
+    <div className="pw-strength-wrap">
+      <div className="pw-bar-row">
+        <div className="pw-strength-bar-track">
+          <div className="pw-strength-bar" style={{ width: `${(passed / 5) * 100}%`, background: barColor }} />
+        </div>
+        <span className="pw-strength-label" style={{ color: barColor }}>{strength}</span>
+      </div>
+      <div className="pw-rules">
+        {rules.map((r) => (
+          <div key={r.key} className={`pw-rule ${v[r.key] ? "pass" : "fail"}`}>
+            <span className="pw-rule-icon">{v[r.key] ? "✓" : "✗"}</span>
+            {r.label}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── FORGOT PASSWORD MODAL ────────────────────────────────────── */
+function ForgotPasswordModal({ onClose }) {
+  const [email, setEmail]     = useState("");
+  const [sent, setSent]       = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState("");
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    setError(""); setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) { setError(error.message); setLoading(false); return; }
+    setSent(true); setLoading(false);
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-icon">🔑</div>
+        <h2 className="modal-title">Reset your password</h2>
+        {sent ? (
+          <>
+            <p className="modal-subtitle" style={{ color: "#2a7d46", marginTop: 8 }}>
+              ✓ Check your email! We sent a reset link to <strong>{email}</strong>.
+            </p>
+            <button className="auth-button" style={{ width: "100%", marginTop: 20 }} onClick={onClose}>Back to Login</button>
+          </>
+        ) : (
+          <form onSubmit={handleSend} style={{ width: "100%" }}>
+            <p className="modal-subtitle" style={{ marginTop: 8 }}>
+              Enter your email and we'll send you a link to reset your password.
+            </p>
+            <input type="email" placeholder="Your email address" value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="lp-input" style={{ width: "100%", marginTop: 16, boxSizing: "border-box" }} required />
+            {error && <p className="lp-error" style={{ marginTop: 8 }}>{error}</p>}
+            <button type="submit" className="auth-button" style={{ width: "100%", marginTop: 12 }} disabled={loading}>
+              {loading ? "Sending…" : "Send Reset Link"}
+            </button>
+            <button type="button" className="modal-decline" onClick={onClose}>Cancel</button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── CONSENT MODAL ────────────────────────────────────────────── */
 function ConsentModal({ onAccept, onDecline }) {
   const [checked, setChecked] = useState(false);
   return (
@@ -15,14 +108,14 @@ function ConsentModal({ onAccept, onDecline }) {
         <div className="modal-icon">🌸</div>
         <h2 className="modal-title">Before you bloom</h2>
         <p className="modal-subtitle">
-          MindBloom uses AI to analyze your journal entries and detect emotional
-          patterns. Please read and agree before continuing.
+          MindBloom uses AI to analyze your journal entries and detect emotional patterns. Please read and agree before continuing.
         </p>
         <div className="modal-points">
           {[
             ["🔒", "Your entries are private and securely stored. Only you can access them."],
             ["🤖", "AI analysis detects stress and emotional patterns in your writing."],
             ["📊", "Anonymized data may be used to improve the app experience."],
+            ["🚨", "If critical distress is detected, your emergency contact will be notified."],
             ["❤️", "MindBloom is a journaling tool — not a substitute for professional care."],
           ].map(([icon, text]) => (
             <div className="modal-point" key={text}>
@@ -44,21 +137,42 @@ function ConsentModal({ onAccept, onDecline }) {
   );
 }
 
-/* ── AUTH PANEL ─────────────────────────────────────────────── */
+/* ── AUTH PANEL ───────────────────────────────────────────────── */
 function AuthPanel({ tab, setTab }) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  // login
+  const [email, setEmail]           = useState("");
+  const [password, setPassword]     = useState("");
+  const [showForgot, setShowForgot] = useState(false);
+
+  // signup — personal
+  const [firstName, setFirstName]   = useState("");
+  const [lastName, setLastName]     = useState("");
+  const [dob, setDob]               = useState("");
+  const [sex, setSex]               = useState("");
+  const [phone, setPhone]           = useState("");
+
+  // signup — emergency contact
+  const [ecName, setEcName]         = useState("");
+  const [ecEmail, setEcEmail]       = useState("");
+
+  // signup — credentials
+  const [signupEmail, setSignupEmail]       = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [showPassword, setShowPassword]     = useState(false);
+
+  // FIX: post-signup confirmation state
+  const [signupDone, setSignupDone]           = useState(false);
+  const [signupSentEmail, setSignupSentEmail] = useState("");
+
+  const [error, setError]             = useState("");
+  const [loading, setLoading]         = useState(false);
   const [showConsent, setShowConsent] = useState(false);
 
-  const switchTab = (t) => { setTab(t); setError(""); };
+  const switchTab = (t) => { setTab(t); setError(""); setSignupDone(false); };
 
+  /* LOGIN */
   const handleLogin = async (e) => {
     e.preventDefault(); setError(""); setLoading(true);
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -67,28 +181,61 @@ function AuthPanel({ tab, setTab }) {
     setLoading(false);
   };
 
+  /* SIGNUP STEP 1 — validate */
   const handleSignupRequest = (e) => {
     e.preventDefault(); setError("");
-    if (!email || !password || !firstName || !lastName) return setError("Please complete all fields.");
-    if (password.length < 6) return setError("Password must be at least 6 characters.");
+    if (!firstName || !lastName || !signupEmail || !signupPassword)
+      return setError("Please complete all required fields.");
+    if (!dob) return setError("Please enter your date of birth.");
+    if (!ecName || !ecEmail) return setError("Please provide an emergency contact name and email.");
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ecEmail))
+      return setError("Please enter a valid emergency contact email.");
+
+    const v = validatePassword(signupPassword);
+    if (!v.length)    return setError("Password must be at least 8 characters.");
+    if (!v.uppercase) return setError("Password needs at least 1 uppercase letter.");
+    if (!v.lowercase) return setError("Password needs at least 1 lowercase letter.");
+    if (!v.number)    return setError("Password needs at least 1 number.");
+    if (!v.special)   return setError("Password needs at least 1 special character (!@#$...).");
     setShowConsent(true);
   };
 
+  /* SIGNUP STEP 2 — after consent */
   const handleSignupConfirm = async () => {
     setShowConsent(false); setLoading(true);
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
     if (error) { setError(error.message); setLoading(false); return; }
     if (data.user) {
-      await supabase.from("profiles").insert([{ id: data.user.id, first_name: firstName, last_name: lastName, age: age ? Number(age) : null, sex: sex || "Prefer not to say" }]);
-      navigate("/app");
+      // FIX: timezone-safe DOB parsing
+      const dobDate = new Date(dob + "T00:00:00");
+      const age = Math.floor((Date.now() - dobDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+      await supabase.from("profiles").insert([{
+        id: data.user.id,
+        first_name: firstName,
+        last_name:  lastName,
+        date_of_birth: dob,
+        age,
+        sex: sex || "Prefer not to say",
+        phone: phone || null,
+        emergency_contact_name:  ecName,
+        emergency_contact_email: ecEmail,
+      }]);
+
+      // FIX: show confirmation instead of navigating — email must be verified first
+      setSignupSentEmail(signupEmail);
+      setSignupDone(true);
     }
     setLoading(false);
   };
+
+  const pwValid = signupPassword ? Object.values(validatePassword(signupPassword)).every(Boolean) : false;
 
   return (
     <>
       <div className="lp-auth-panel" id="get-started">
         <div className="lp-auth-panel-inner">
+
           <div className="lp-auth-logo-row">
             <img src="/mblogo.png" alt="MindBloom" style={{ width: 32, height: 32, objectFit: "contain" }} />
             <span className="lp-auth-brand">MindBloom</span>
@@ -99,42 +246,118 @@ function AuthPanel({ tab, setTab }) {
             <button className={tab === "signup" ? "lp-tab active" : "lp-tab"} onClick={() => switchTab("signup")}>Sign Up</button>
           </div>
 
-          {tab === "login" ? (
+          {/* ── LOGIN ── */}
+          {tab === "login" && (
             <form onSubmit={handleLogin} className="lp-auth-form">
-              <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} className="lp-input" required />
-              <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} className="lp-input" required />
+              {/* FIX: controlled inputs with value props */}
+              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="lp-input" required />
+              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="lp-input" required />
+              <button type="button" className="lp-forgot-btn" onClick={() => setShowForgot(true)}>Forgot password?</button>
               {error && <p className="lp-error">{error}</p>}
               <button className="lp-submit-btn" disabled={loading}>{loading ? "Logging in…" : "Log In"}</button>
             </form>
-          ) : (
-            <form onSubmit={handleSignupRequest} className="lp-auth-form">
-              <div className="lp-input-row">
-                <input placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} className="lp-input" required />
-                <input placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} className="lp-input" required />
-              </div>
-              <div className="lp-input-row">
-                <input type="number" placeholder="Age" onChange={(e) => setAge(e.target.value)} className="lp-input" min="10" max="120" />
-                <select onChange={(e) => setSex(e.target.value)} className="lp-input lp-select">
-                  <option value="">Sex</option>
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </select>
-              </div>
-              <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} className="lp-input" required />
-              <input type="password" placeholder="Password (min 6 chars)" onChange={(e) => setPassword(e.target.value)} className="lp-input" required />
-              {error && <p className="lp-error">{error}</p>}
-              <button className="lp-submit-btn" disabled={loading}>{loading ? "Creating account…" : "Sign up"}</button>
-            </form>
           )}
+
+          {/* ── SIGNUP ── */}
+          {tab === "signup" && (
+            <>
+              {/* FIX: show email confirmation message after successful signup */}
+              {signupDone ? (
+                <div className="lp-signup-confirm">
+                  <div className="lp-signup-confirm-icon">📬</div>
+                  <h3 className="lp-signup-confirm-title">Check your email!</h3>
+                  <p className="lp-signup-confirm-body">
+                    We sent a confirmation link to <strong>{signupSentEmail}</strong>.
+                    Please verify your email, then come back to log in.
+                  </p>
+                  <button
+                    className="lp-submit-btn"
+                    style={{ marginTop: 16 }}
+                    onClick={() => switchTab("login")}
+                  >
+                    Go to Log In
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSignupRequest} className="lp-auth-form">
+
+                  {/* PERSONAL */}
+                  <p className="lp-section-divider">Personal Information</p>
+                  <div className="lp-input-row">
+                    <input placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} className="lp-input" required />
+                    <input placeholder="Last Name"  onChange={(e) => setLastName(e.target.value)}  className="lp-input" required />
+                  </div>
+
+                  <div className="lp-form-group">
+                    <label className="lp-label">Date of Birth</label>
+                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)}
+                      className="lp-input" max={new Date().toISOString().split("T")[0]} required />
+                  </div>
+
+                  <div className="lp-input-row">
+                    <select onChange={(e) => setSex(e.target.value)} className="lp-input lp-select">
+                      <option value="">Gender (optional)</option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                      <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                    <input type="tel" placeholder="Phone (optional)"
+                      onChange={(e) => setPhone(e.target.value)} className="lp-input" />
+                  </div>
+
+                  {/* ACCOUNT */}
+                  <p className="lp-section-divider">Account Credentials</p>
+                  <input type="email" placeholder="Email" onChange={(e) => setSignupEmail(e.target.value)} className="lp-input" required />
+
+                  <div className="lp-form-group">
+                    <div className="lp-password-wrap">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        onChange={(e) => setSignupPassword(e.target.value)}
+                        className="lp-input"
+                        style={{ paddingRight: 44 }}
+                        required
+                      />
+                      {/* FIX: password toggle now has an icon */}
+                      <button type="button" className="lp-pw-toggle" onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? "🙈" : "👁️"}
+                      </button>
+                    </div>
+                    <PasswordStrength password={signupPassword} />
+                  </div>
+
+                  {/* EMERGENCY CONTACT */}
+                  <p className="lp-section-divider">
+                    Emergency Contact
+                    <span className="lp-section-divider-note"> — notified if critical distress is detected</span>
+                  </p>
+                  <input placeholder="Contact Name" onChange={(e) => setEcName(e.target.value)} className="lp-input" required />
+                  <input type="email" placeholder="Contact Email" onChange={(e) => setEcEmail(e.target.value)} className="lp-input" required />
+
+                  <div className="lp-ec-notice">
+                    🚨 This person will receive an email if MindBloom detects signs of serious emotional distress in your entries.
+                  </div>
+
+                  {error && <p className="lp-error">{error}</p>}
+                  <button className="lp-submit-btn" disabled={loading || !pwValid}>
+                    {loading ? "Creating account…" : "Sign Up"}
+                  </button>
+                </form>
+              )}
+            </>
+          )}
+
         </div>
       </div>
+
+      {showForgot  && <ForgotPasswordModal onClose={() => setShowForgot(false)} />}
       {showConsent && <ConsentModal onAccept={handleSignupConfirm} onDecline={() => setShowConsent(false)} />}
     </>
   );
 }
 
-/* ── ILLUSTRATION ───────────────────────────────────────────── */
+/* ── ILLUSTRATION ─────────────────────────────────────────────── */
 function Illustration() {
   return (
     <svg viewBox="0 0 420 380" fill="none" xmlns="http://www.w3.org/2000/svg" className="lp-illustration">
@@ -186,13 +409,12 @@ function Illustration() {
   );
 }
 
-/* ── FEATURES SECTION ───────────────────────────────────────── */
 function FeaturesSection() {
   const features = [
-    { icon: "✍️", color: "#fff0f5", title: "Daily Journaling",        desc: "Write freely about your day with no judgment. Honest words lead to real insights." },
-    { icon: "🤖", color: "#f0e8ff", title: "AI Emotion Detection",    desc: "AI reads your entries and detects positive, neutral, or negative emotional tones instantly." },
-    { icon: "📊", color: "#e7f4ff", title: "Stress Pattern Tracking", desc: "See your weekly emotional averages and high-stress days visualized in clear, simple charts." },
-    { icon: "🔒", color: "#d4f0dc", title: "Private & Secure",        desc: "Your journal is yours alone. Entries are securely stored and never shared without consent." },
+    { icon: "✍️", color: "#fff0f5", title: "Daily Journaling",        desc: "Write freely about your day. Honest words lead to real insights." },
+    { icon: "🤖", color: "#f0e8ff", title: "AI Emotion Detection",    desc: "AI detects positive, neutral, or negative emotional tones instantly." },
+    { icon: "📊", color: "#e7f4ff", title: "Stress Pattern Tracking", desc: "See weekly emotional averages and high-stress days in clear charts." },
+    { icon: "🔒", color: "#d4f0dc", title: "Private & Secure",        desc: "Your journal is yours alone. Never shared without your consent." },
   ];
   return (
     <section className="lp-features-section" id="features">
@@ -213,7 +435,6 @@ function FeaturesSection() {
   );
 }
 
-/* ── ABOUT SECTION ──────────────────────────────────────────── */
 function AboutSection() {
   return (
     <section className="lp-about-section" id="about">
@@ -223,23 +444,13 @@ function AboutSection() {
           <h2 className="lp-section-heading" style={{ textAlign: "left" }}>
             Built for the overwhelmed, the burnt out, the quietly struggling.
           </h2>
-          <p className="lp-about-body">
-            Stress and burnout are common problems especially among students and young adults.
-            Many feel overwhelmed by school, work, and social expectations — yet can't clearly
-            identify what triggers these emotions.
-          </p>
-          <p className="lp-about-body">
-            MindBloom bridges that gap by combining daily journaling with AI-driven sentiment
-            analysis, helping users move from "I feel bad" to "I understand why."
-          </p>
+          <p className="lp-about-body">Stress and burnout are common problems especially among students and young adults. Many feel overwhelmed by school, work, and social expectations — yet can't clearly identify what triggers these emotions.</p>
+          <p className="lp-about-body">MindBloom bridges that gap by combining daily journaling with AI-driven sentiment analysis, helping users move from "I feel bad" to "I understand why."</p>
           <div className="lp-sdg-badge">SDG 3 — Good Health and Well-being</div>
         </div>
         <div className="lp-about-card">
           <div className="lp-about-quote">"</div>
-          <p className="lp-about-quote-text">
-            Without awareness, stress can build up over time and affect mental health and daily life.
-            MindBloom makes stress awareness simple, objective, and accessible.
-          </p>
+          <p className="lp-about-quote-text">Without awareness, stress can build up over time and affect mental health and daily life. MindBloom makes stress awareness simple, objective, and accessible.</p>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.25)", paddingTop: 16, marginTop: 16 }}>
             <p style={{ fontSize: 12, opacity: 0.7, textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 10 }}>Target Users</p>
             {["· Students", "· Young Individuals", "· Anyone seeking non-clinical wellness support"].map((t) => (
@@ -252,14 +463,10 @@ function AboutSection() {
   );
 }
 
-/* ── MAIN ───────────────────────────────────────────────────── */
 export default function Landing() {
   const [tab, setTab] = useState("login");
-
   return (
     <div className="lp-root">
-
-      {/* NAVBAR */}
       <nav className="lp-navbar">
         <div className="lp-navbar-brand">
           <img src="/mblogo.png" alt="MindBloom" style={{ width: 28, height: 28, objectFit: "contain" }} />
@@ -272,45 +479,26 @@ export default function Landing() {
         </div>
       </nav>
 
-      {/* HERO SPLIT */}
       <div className="lp-split">
-
-        {/* LEFT */}
         <div className="lp-hero">
           <div className="lp-hero-badge">AI-Powered Mental Wellness</div>
-          <h1 className="lp-hero-title">
-            Your mind<br />
-            <span className="lp-hero-accent">deserves to</span><br />
-            bloom.
-          </h1>
-          <p className="lp-hero-body">
-            Write freely. Let AI understand your emotions.
-            Discover your stress patterns and grow — one journal entry at a time.
-          </p>
+          <h1 className="lp-hero-title">Your mind<br /><span className="lp-hero-accent">deserves to</span><br />bloom.</h1>
+          <p className="lp-hero-body">Write freely. Let AI understand your emotions. Discover your stress patterns and grow — one journal entry at a time.</p>
           <div className="lp-hero-trust">
             <span>🔒 Private</span>
             <span>🤖 AI-powered</span>
             <span>📊 Visual insights</span>
           </div>
         </div>
-
-        {/* RIGHT — ILLUSTRATION + AUTH */}
         <div className="lp-right">
-          <div className="lp-illustration-wrap">
-            <Illustration />
-          </div>
+          <div className="lp-illustration-wrap"><Illustration /></div>
           <AuthPanel tab={tab} setTab={setTab} />
         </div>
-
       </div>
 
-      {/* FEATURES */}
       <FeaturesSection />
-
-      {/* ABOUT */}
       <AboutSection />
 
-      {/* STATS STRIP */}
       <div className="lp-about-strip">
         <div className="lp-about-strip-inner">
           <div className="lp-about-stat"><strong>SDG 3</strong><span>Good Health & Well-being</span></div>
@@ -323,7 +511,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* FOOTER */}
       <footer className="lp-footer">
         <div className="lp-footer-brand">
           <img src="/mblogo.png" alt="MindBloom" style={{ width: 18, height: 18, objectFit: "contain" }} />
@@ -331,7 +518,6 @@ export default function Landing() {
         </div>
         <p>© 2026 MindBloom. All rights reserved.</p>
       </footer>
-
     </div>
   );
 }

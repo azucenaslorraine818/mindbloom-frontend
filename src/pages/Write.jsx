@@ -90,13 +90,6 @@ export default function Write() {
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
 
-  const today = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
   const handlePrompt = (p) => {
     if (result || analyzing) return;
     setText((prev) => (prev ? prev + " " + p : p));
@@ -110,17 +103,18 @@ export default function Write() {
 
     try {
       const analysis = await analyzeJournal(text);
-
       if (!analysis) throw new Error("No AI response");
 
-      setResult({
-        tone: analysis.tone,
+      const safeAnalysis = {
+        tone: analysis.tone || "Unknown",
         tags: analysis.tags || [],
-        positive: analysis.positive,
-        neutral: analysis.neutral,
-        negative: analysis.negative,
-        mindbloom: analysis.mindbloom,
-      });
+        positive: analysis.positive ?? 33,
+        neutral: analysis.neutral ?? 34,
+        negative: analysis.negative ?? 33,
+        mindbloom: analysis.mindbloom || "",
+      };
+
+      setResult(safeAnalysis);
 
       const { data: userData } = await supabase.auth.getUser();
       const user = userData?.user;
@@ -130,17 +124,42 @@ export default function Write() {
           {
             user_id: user.id,
             note: text,
-            tone: analysis.tone,
-            positive: analysis.positive,
-            neutral: analysis.neutral,
-            negative: analysis.negative,
-            mindbloom: analysis.mindbloom,
-            tags: analysis.tags,
+            tone: safeAnalysis.tone,
+            positive: safeAnalysis.positive,
+            neutral: safeAnalysis.neutral,
+            negative: safeAnalysis.negative,
+            mindbloom: safeAnalysis.mindbloom,
+            tags: safeAnalysis.tags,
           },
         ]);
 
         if (!error) setSaved(true);
-        else console.error("Save error:", error.message);
+
+        /* =========================
+           🚨 EMERGENCY SYSTEM
+        ========================== */
+
+        const isCritical =
+          safeAnalysis.negative >= 85 ||
+          (safeAnalysis.tone === "Negative" && safeAnalysis.negative >= 70) ||
+          /suicide|kill myself|self harm|hurt myself/i.test(text);
+
+        const lastAlert = localStorage.getItem("last_emergency_alert");
+        const now = Date.now();
+
+        const canSend = !lastAlert || now - lastAlert > 6 * 60 * 60 * 1000;
+
+        if (isCritical && canSend) {
+          localStorage.setItem("last_emergency_alert", now);
+
+          await supabase.functions.invoke("send-emergency-email", {
+            body: {
+              user_id: user.id,
+              message: text,
+              score: safeAnalysis.negative,
+            },
+          });
+        }
       }
     } catch (err) {
       console.error("AI error:", err);
@@ -211,7 +230,7 @@ export default function Write() {
         <div className="write-sidebar">
 
           <div className="write-tips-card">
-            <p className="write-tips-title">💡 Writing tips</p>
+            <p className="write-tips-title"> Writing tips</p>
             <ul className="write-tips-list">
               {TIPS.map((t, i) => <li key={i}>{t}</li>)}
             </ul>
