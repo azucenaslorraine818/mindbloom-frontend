@@ -6282,3 +6282,8 @@ body.dark  .sb-backdrop {
 .lp-pw-toggle:hover {
   color: #e8607a;
 }
+/* Hide browser native password reveal button */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
