@@ -6246,3 +6246,39 @@ body.dark  .sb-backdrop {
 
   padding-right: 42px;
 }
+
+/* ── PASSWORD WRAP + EYE TOGGLE (paste into App.css) ─────────────
+   Replaces/consolidates the existing .lp-password-wrap rules.
+   ────────────────────────────────────────────────────────────── */
+
+.lp-password-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.lp-password-wrap .lp-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 44px; /* always leave room for the toggle */
+}
+
+.lp-pw-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a07080;
+  transition: color 0.15s;
+}
+
+.lp-pw-toggle:hover {
+  color: #e8607a;
+}
