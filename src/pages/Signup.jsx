@@ -9,21 +9,29 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  // FIX: post-signup confirmation state
   const [sent, setSent] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
 
-    // FIX: was checking < 6 but message said 8 — now correctly checks < 8
     if (password.length < 8) {
       setError("Password must be at least 8 characters.");
       return;
     }
 
     setLoading(true);
-    const { data, error } = await supabase.auth.signUp({ email, password });
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        // ✅ FIX: tells Supabase where to redirect after the user clicks
+        // the confirmation link in their email. Without this, the email
+        // either doesn't send or redirects to the wrong place.
+        emailRedirectTo: `${window.location.origin}/`,
+      },
+    });
 
     if (error) {
       setError(error.message);
@@ -32,15 +40,12 @@ export default function Signup() {
     }
 
     if (data.user) {
-      // FIX: don't navigate immediately — Supabase requires email confirmation
-      // before the user can log in. Show a confirmation message instead.
       setSent(true);
     }
 
     setLoading(false);
   };
 
-  // Show confirmation screen after successful signup
   if (sent) {
     return (
       <div className="auth-container">
