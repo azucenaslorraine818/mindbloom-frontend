@@ -6,7 +6,51 @@ const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 };
 
-/* ── PASSWORD VALIDATION ──────────────────────────────────────── */
+/* ── SVG Eye Icons ───────────────────────────────────────────── */
+const EyeOpen = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+);
+
+const EyeClosed = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+    <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+    <line x1="1" y1="1" x2="23" y2="23"/>
+  </svg>
+);
+
+/* ── Reusable password input with eye toggle ─────────────────── */
+function PasswordInput({ placeholder, value, onChange, className, style, required }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="lp-password-wrap">
+      <input
+        type={show ? "text" : "password"}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className={className}
+        style={{ paddingRight: 44, ...style }}
+        required={required}
+      />
+      <button
+        type="button"
+        className="lp-pw-toggle"
+        onClick={() => setShow(s => !s)}
+        aria-label={show ? "Hide password" : "Show password"}
+      >
+        {show ? <EyeOpen /> : <EyeClosed />}
+      </button>
+    </div>
+  );
+}
+
+/* ── PASSWORD VALIDATION ─────────────────────────────────────── */
 function validatePassword(pw) {
   return {
     length:    pw.length >= 8,
@@ -27,7 +71,7 @@ function PasswordStrength({ password }) {
     { key: "number",    label: "1 number (0–9)" },
     { key: "special",   label: "1 special character (!@#$…)" },
   ];
-  const passed = Object.values(v).filter(Boolean).length;
+  const passed   = Object.values(v).filter(Boolean).length;
   const strength = passed <= 2 ? "Weak" : passed <= 4 ? "Fair" : "Strong";
   const barColor = passed <= 2 ? "#e8607a" : passed <= 4 ? "#f5c842" : "#6dbf8a";
   return (
@@ -50,7 +94,7 @@ function PasswordStrength({ password }) {
   );
 }
 
-/* ── FORGOT PASSWORD MODAL ────────────────────────────────────── */
+/* ── FORGOT PASSWORD MODAL ───────────────────────────────────── */
 function ForgotPasswordModal({ onClose }) {
   const [email, setEmail]     = useState("");
   const [sent, setSent]       = useState(false);
@@ -77,16 +121,22 @@ function ForgotPasswordModal({ onClose }) {
             <p className="modal-subtitle" style={{ color: "#2a7d46", marginTop: 8 }}>
               ✓ Check your email! We sent a reset link to <strong>{email}</strong>.
             </p>
-            <button className="auth-button" style={{ width: "100%", marginTop: 20 }} onClick={onClose}>Back to Login</button>
+            <button className="auth-button" style={{ width: "100%", marginTop: 20 }} onClick={onClose}>
+              Back to Login
+            </button>
           </>
         ) : (
           <form onSubmit={handleSend} style={{ width: "100%" }}>
             <p className="modal-subtitle" style={{ marginTop: 8 }}>
               Enter your email and we'll send you a link to reset your password.
             </p>
-            <input type="email" placeholder="Your email address" value={email}
+            <input
+              type="email" placeholder="Your email address" value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="lp-input" style={{ width: "100%", marginTop: 16, boxSizing: "border-box" }} required />
+              className="lp-input"
+              style={{ width: "100%", marginTop: 16, boxSizing: "border-box" }}
+              required
+            />
             {error && <p className="lp-error" style={{ marginTop: 8 }}>{error}</p>}
             <button type="submit" className="auth-button" style={{ width: "100%", marginTop: 12 }} disabled={loading}>
               {loading ? "Sending…" : "Send Reset Link"}
@@ -99,7 +149,7 @@ function ForgotPasswordModal({ onClose }) {
   );
 }
 
-/* ── CONSENT MODAL ────────────────────────────────────────────── */
+/* ── CONSENT MODAL ───────────────────────────────────────────── */
 function ConsentModal({ onAccept, onDecline }) {
   const [checked, setChecked] = useState(false);
   return (
@@ -108,7 +158,8 @@ function ConsentModal({ onAccept, onDecline }) {
         <div className="modal-icon">🌸</div>
         <h2 className="modal-title">Before you bloom</h2>
         <p className="modal-subtitle">
-          MindBloom uses AI to analyze your journal entries and detect emotional patterns. Please read and agree before continuing.
+          MindBloom uses AI to analyze your journal entries and detect emotional patterns.
+          Please read and agree before continuing.
         </p>
         <div className="modal-points">
           {[
@@ -125,10 +176,19 @@ function ConsentModal({ onAccept, onDecline }) {
           ))}
         </div>
         <label className="modal-check-row">
-          <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="modal-checkbox" />
+          <input
+            type="checkbox" checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+            className="modal-checkbox"
+          />
           <span>I understand and agree to MindBloom's data usage and terms.</span>
         </label>
-        <button className="auth-button" style={{ width: "100%", marginTop: 16, opacity: checked ? 1 : 0.5 }} disabled={!checked} onClick={onAccept}>
+        <button
+          className="auth-button"
+          style={{ width: "100%", marginTop: 16, opacity: checked ? 1 : 0.5 }}
+          disabled={!checked}
+          onClick={onAccept}
+        >
           I Agree — Let's Bloom 🌸
         </button>
         <button className="modal-decline" onClick={onDecline}>Cancel</button>
@@ -137,7 +197,7 @@ function ConsentModal({ onAccept, onDecline }) {
   );
 }
 
-/* ── AUTH PANEL ───────────────────────────────────────────────── */
+/* ── AUTH PANEL ──────────────────────────────────────────────── */
 function AuthPanel({ tab, setTab }) {
   const navigate = useNavigate();
 
@@ -147,22 +207,21 @@ function AuthPanel({ tab, setTab }) {
   const [showForgot, setShowForgot] = useState(false);
 
   // signup — personal
-  const [firstName, setFirstName]   = useState("");
-  const [lastName, setLastName]     = useState("");
-  const [dob, setDob]               = useState("");
-  const [sex, setSex]               = useState("");
-  const [phone, setPhone]           = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName]   = useState("");
+  const [dob, setDob]             = useState("");
+  const [sex, setSex]             = useState("");
+  const [phone, setPhone]         = useState("");
 
   // signup — emergency contact
-  const [ecName, setEcName]         = useState("");
-  const [ecEmail, setEcEmail]       = useState("");
+  const [ecName, setEcName]   = useState("");
+  const [ecEmail, setEcEmail] = useState("");
 
   // signup — credentials
   const [signupEmail, setSignupEmail]       = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-  const [showPassword, setShowPassword]     = useState(false);
 
-  // FIX: post-signup confirmation state
+  // signup — confirmation
   const [signupDone, setSignupDone]           = useState(false);
   const [signupSentEmail, setSignupSentEmail] = useState("");
 
@@ -188,10 +247,8 @@ function AuthPanel({ tab, setTab }) {
       return setError("Please complete all required fields.");
     if (!dob) return setError("Please enter your date of birth.");
     if (!ecName || !ecEmail) return setError("Please provide an emergency contact name and email.");
-
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ecEmail))
       return setError("Please enter a valid emergency contact email.");
-
     const v = validatePassword(signupPassword);
     if (!v.length)    return setError("Password must be at least 8 characters.");
     if (!v.uppercase) return setError("Password needs at least 1 uppercase letter.");
@@ -207,7 +264,6 @@ function AuthPanel({ tab, setTab }) {
     const { data, error } = await supabase.auth.signUp({ email: signupEmail, password: signupPassword });
     if (error) { setError(error.message); setLoading(false); return; }
     if (data.user) {
-      // FIX: timezone-safe DOB parsing
       const dobDate = new Date(dob + "T00:00:00");
       const age = Math.floor((Date.now() - dobDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
       await supabase.from("profiles").insert([{
@@ -221,15 +277,15 @@ function AuthPanel({ tab, setTab }) {
         emergency_contact_name:  ecName,
         emergency_contact_email: ecEmail,
       }]);
-
-      // FIX: show confirmation instead of navigating — email must be verified first
       setSignupSentEmail(signupEmail);
       setSignupDone(true);
     }
     setLoading(false);
   };
 
-  const pwValid = signupPassword ? Object.values(validatePassword(signupPassword)).every(Boolean) : false;
+  const pwValid = signupPassword
+    ? Object.values(validatePassword(signupPassword)).every(Boolean)
+    : false;
 
   return (
     <>
@@ -249,19 +305,39 @@ function AuthPanel({ tab, setTab }) {
           {/* ── LOGIN ── */}
           {tab === "login" && (
             <form onSubmit={handleLogin} className="lp-auth-form">
-              {/* FIX: controlled inputs with value props */}
-              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="lp-input" required />
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="lp-input" required />
-              <button type="button" className="lp-forgot-btn" onClick={() => setShowForgot(true)}>Forgot password?</button>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="lp-input"
+                required
+              />
+
+              {/* Password with eye toggle */}
+              <PasswordInput
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="lp-input"
+                required
+              />
+
+              <button type="button" className="lp-forgot-btn" onClick={() => setShowForgot(true)}>
+                Forgot password?
+              </button>
+
               {error && <p className="lp-error">{error}</p>}
-              <button className="lp-submit-btn" disabled={loading}>{loading ? "Logging in…" : "Log In"}</button>
+
+              <button className="lp-submit-btn" disabled={loading}>
+                {loading ? "Logging in…" : "Log In"}
+              </button>
             </form>
           )}
 
           {/* ── SIGNUP ── */}
           {tab === "signup" && (
             <>
-              {/* FIX: show email confirmation message after successful signup */}
               {signupDone ? (
                 <div className="lp-signup-confirm">
                   <div className="lp-signup-confirm-icon">📬</div>
@@ -270,11 +346,7 @@ function AuthPanel({ tab, setTab }) {
                     We sent a confirmation link to <strong>{signupSentEmail}</strong>.
                     Please verify your email, then come back to log in.
                   </p>
-                  <button
-                    className="lp-submit-btn"
-                    style={{ marginTop: 16 }}
-                    onClick={() => switchTab("login")}
-                  >
+                  <button className="lp-submit-btn" style={{ marginTop: 16 }} onClick={() => switchTab("login")}>
                     Go to Log In
                   </button>
                 </div>
@@ -290,8 +362,13 @@ function AuthPanel({ tab, setTab }) {
 
                   <div className="lp-form-group">
                     <label className="lp-label">Date of Birth</label>
-                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)}
-                      className="lp-input" max={new Date().toISOString().split("T")[0]} required />
+                    <input
+                      type="date" value={dob}
+                      onChange={(e) => setDob(e.target.value)}
+                      className="lp-input"
+                      max={new Date().toISOString().split("T")[0]}
+                      required
+                    />
                   </div>
 
                   <div className="lp-input-row">
@@ -301,29 +378,31 @@ function AuthPanel({ tab, setTab }) {
                       <option value="F">Female</option>
                       <option value="Prefer not to say">Prefer not to say</option>
                     </select>
-                    <input type="tel" placeholder="Phone (optional)"
-                      onChange={(e) => setPhone(e.target.value)} className="lp-input" />
+                    <input
+                      type="tel" placeholder="Phone (optional)"
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="lp-input"
+                    />
                   </div>
 
                   {/* ACCOUNT */}
                   <p className="lp-section-divider">Account Credentials</p>
-                  <input type="email" placeholder="Email" onChange={(e) => setSignupEmail(e.target.value)} className="lp-input" required />
+                  <input
+                    type="email" placeholder="Email"
+                    onChange={(e) => setSignupEmail(e.target.value)}
+                    className="lp-input"
+                    required
+                  />
 
+                  {/* Password with eye toggle + strength meter */}
                   <div className="lp-form-group">
-                    <div className="lp-password-wrap">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Password"
-                        onChange={(e) => setSignupPassword(e.target.value)}
-                        className="lp-input"
-                        style={{ paddingRight: 44 }}
-                        required
-                      />
-                      {/* FIX: password toggle now has an icon */}
-                      <button type="button" className="lp-pw-toggle" onClick={() => setShowPassword(!showPassword)}>
-                        {showPassword ? "🙈" : "👁️"}
-                      </button>
-                    </div>
+                    <PasswordInput
+                      placeholder="Password"
+                      value={signupPassword}
+                      onChange={(e) => setSignupPassword(e.target.value)}
+                      className="lp-input"
+                      required
+                    />
                     <PasswordStrength password={signupPassword} />
                   </div>
 
@@ -332,7 +411,7 @@ function AuthPanel({ tab, setTab }) {
                     Emergency Contact
                     <span className="lp-section-divider-note"> — notified if critical distress is detected</span>
                   </p>
-                  <input placeholder="Contact Name" onChange={(e) => setEcName(e.target.value)} className="lp-input" required />
+                  <input placeholder="Contact Name"  onChange={(e) => setEcName(e.target.value)}  className="lp-input" required />
                   <input type="email" placeholder="Contact Email" onChange={(e) => setEcEmail(e.target.value)} className="lp-input" required />
 
                   <div className="lp-ec-notice">
@@ -343,6 +422,7 @@ function AuthPanel({ tab, setTab }) {
                   <button className="lp-submit-btn" disabled={loading || !pwValid}>
                     {loading ? "Creating account…" : "Sign Up"}
                   </button>
+
                 </form>
               )}
             </>
@@ -357,7 +437,7 @@ function AuthPanel({ tab, setTab }) {
   );
 }
 
-/* ── ILLUSTRATION ─────────────────────────────────────────────── */
+/* ── ILLUSTRATION ────────────────────────────────────────────── */
 function Illustration() {
   return (
     <svg viewBox="0 0 420 380" fill="none" xmlns="http://www.w3.org/2000/svg" className="lp-illustration">
