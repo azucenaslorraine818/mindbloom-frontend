@@ -6,7 +6,7 @@ const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 };
 
-/* ── SVG Eye Icons ───────────────────────────────────────────── */
+/* ── SVG Icons ──────────────────────────────────────────────── */
 const EyeOpen = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -21,6 +21,98 @@ const EyeClosed = () => (
     <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
     <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
     <line x1="1" y1="1" x2="23" y2="23"/>
+  </svg>
+);
+
+/* Feature Icons */
+const PenIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+  </svg>
+);
+
+const BrainIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+    <path d="M12 6v12M6 12h12M9 9l6 6M15 9l-6 6"/>
+  </svg>
+);
+
+const ChartIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="12" y1="20" x2="12" y2="10"/>
+    <line x1="18" y1="20" x2="18" y2="4"/>
+    <line x1="6" y1="20" x2="6" y2="16"/>
+    <rect x="2" y="20" width="20" height="2" rx="1"/>
+  </svg>
+);
+
+const LockIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </svg>
+);
+
+const ShieldIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </svg>
+);
+
+const HeartIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+);
+
+const AlertIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3.04h16.94a2 2 0 0 0 1.71-3.04L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+    <line x1="12" y1="9" x2="12" y2="13"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+  </svg>
+);
+
+const FlowerIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="2"/>
+    <circle cx="12" cy="4" r="2"/>
+    <circle cx="20" cy="12" r="2"/>
+    <circle cx="12" cy="20" r="2"/>
+    <circle cx="4" cy="12" r="2"/>
+    <circle cx="16.5" cy="7.5" r="2"/>
+    <circle cx="16.5" cy="16.5" r="2"/>
+    <circle cx="7.5" cy="16.5" r="2"/>
+    <circle cx="7.5" cy="7.5" r="2"/>
+  </svg>
+);
+
+const CheckIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+);
+
+const XIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/>
+    <line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+);
+
+const MailIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </svg>
+);
+
+const KeyIcon = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="7.5" cy="15.5" r="5.5"/>
+    <path d="m13 17.5 5.5-5.5M20 10l-4 4"/>
   </svg>
 );
 
@@ -85,7 +177,9 @@ function PasswordStrength({ password }) {
       <div className="pw-rules">
         {rules.map((r) => (
           <div key={r.key} className={`pw-rule ${v[r.key] ? "pass" : "fail"}`}>
-            <span className="pw-rule-icon">{v[r.key] ? "✓" : "✗"}</span>
+            <span className="pw-rule-icon" style={{ color: v[r.key] ? "#6dbf8a" : "#e8607a" }}>
+              {v[r.key] ? <CheckIcon size={16} /> : <XIcon size={16} />}
+            </span>
             {r.label}
           </div>
         ))}
@@ -114,12 +208,15 @@ function ForgotPasswordModal({ onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-icon">🔑</div>
+        <div className="modal-icon" style={{ fontSize: 32 }}>
+          <KeyIcon size={32} />
+        </div>
         <h2 className="modal-title">Reset your password</h2>
         {sent ? (
           <>
             <p className="modal-subtitle" style={{ color: "#2a7d46", marginTop: 8 }}>
-              ✓ Check your email! We sent a reset link to <strong>{email}</strong>.
+              <CheckIcon size={18} style={{ display: "inline", marginRight: 8 }} />
+              Check your email! We sent a reset link to <strong>{email}</strong>.
             </p>
             <button className="auth-button" style={{ width: "100%", marginTop: 20 }} onClick={onClose}>
               Back to Login
@@ -155,7 +252,9 @@ function ConsentModal({ onAccept, onDecline }) {
   return (
     <div className="modal-overlay" onClick={onDecline}>
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-icon">🌸</div>
+        <div className="modal-icon">
+          <FlowerIcon size={32} />
+        </div>
         <h2 className="modal-title">Before you bloom</h2>
         <p className="modal-subtitle">
           MindBloom uses AI to analyze your journal entries and detect emotional patterns.
@@ -163,14 +262,14 @@ function ConsentModal({ onAccept, onDecline }) {
         </p>
         <div className="modal-points">
           {[
-            ["🔒", "Your entries are private and securely stored. Only you can access them."],
-            ["🤖", "AI analysis detects stress and emotional patterns in your writing."],
-            ["📊", "Anonymized data may be used to improve the app experience."],
-            ["🚨", "If critical distress is detected, your emergency contact will be notified."],
-            ["❤️", "MindBloom is a journaling tool — not a substitute for professional care."],
+            [<LockIcon size={20} />, "Your entries are private and securely stored. Only you can access them."],
+            [<BrainIcon size={20} />, "AI analysis detects stress and emotional patterns in your writing."],
+            [<ChartIcon size={20} />, "Anonymized data may be used to improve the app experience."],
+            [<AlertIcon size={20} />, "If critical distress is detected, your emergency contact will be notified."],
+            [<HeartIcon size={20} />, "MindBloom is a journaling tool — not a substitute for professional care."],
           ].map(([icon, text]) => (
             <div className="modal-point" key={text}>
-              <span className="modal-point-icon">{icon}</span>
+              <span className="modal-point-icon" style={{ color: "#e8607a" }}>{icon}</span>
               <p>{text}</p>
             </div>
           ))}
@@ -189,7 +288,7 @@ function ConsentModal({ onAccept, onDecline }) {
           disabled={!checked}
           onClick={onAccept}
         >
-          I Agree — Let's Bloom 🌸
+          I Agree — Let's Bloom <FlowerIcon size={16} style={{ display: "inline", marginLeft: 6 }} />
         </button>
         <button className="modal-decline" onClick={onDecline}>Cancel</button>
       </div>
@@ -340,7 +439,9 @@ function AuthPanel({ tab, setTab }) {
             <>
               {signupDone ? (
                 <div className="lp-signup-confirm">
-                  <div className="lp-signup-confirm-icon">📬</div>
+                  <div className="lp-signup-confirm-icon">
+                    <MailIcon size={32} />
+                  </div>
                   <h3 className="lp-signup-confirm-title">Check your email!</h3>
                   <p className="lp-signup-confirm-body">
                     We sent a confirmation link to <strong>{signupSentEmail}</strong>.
@@ -415,7 +516,8 @@ function AuthPanel({ tab, setTab }) {
                   <input type="email" placeholder="Contact Email" onChange={(e) => setEcEmail(e.target.value)} className="lp-input" required />
 
                   <div className="lp-ec-notice">
-                    🚨 This person will receive an email if MindBloom detects signs of serious emotional distress in your entries.
+                    <AlertIcon size={18} style={{ display: "inline", marginRight: 8, color: "#e8607a" }} />
+                    This person will receive an email if MindBloom detects signs of serious emotional distress in your entries.
                   </div>
 
                   {error && <p className="lp-error">{error}</p>}
@@ -491,10 +593,10 @@ function Illustration() {
 
 function FeaturesSection() {
   const features = [
-    { icon: "✍️", color: "#fff0f5", title: "Daily Journaling",        desc: "Write freely about your day. Honest words lead to real insights." },
-    { icon: "🤖", color: "#f0e8ff", title: "AI Emotion Detection",    desc: "AI detects positive, neutral, or negative emotional tones instantly." },
-    { icon: "📊", color: "#e7f4ff", title: "Stress Pattern Tracking", desc: "See weekly emotional averages and high-stress days in clear charts." },
-    { icon: "🔒", color: "#d4f0dc", title: "Private & Secure",        desc: "Your journal is yours alone. Never shared without your consent." },
+    { icon: <PenIcon size={28} />, color: "#fff0f5", title: "Daily Journaling",        desc: "Write freely about your day. Honest words lead to real insights." },
+    { icon: <BrainIcon size={28} />, color: "#f0e8ff", title: "AI Emotion Detection",    desc: "AI detects positive, neutral, or negative emotional tones instantly." },
+    { icon: <ChartIcon size={28} />, color: "#e7f4ff", title: "Stress Pattern Tracking", desc: "See weekly emotional averages and high-stress days in clear charts." },
+    { icon: <LockIcon size={28} />, color: "#d4f0dc", title: "Private & Secure",        desc: "Your journal is yours alone. Never shared without your consent." },
   ];
   return (
     <section className="lp-features-section" id="features">
@@ -504,7 +606,7 @@ function FeaturesSection() {
         <div className="lp-features-grid">
           {features.map((f) => (
             <div className="lp-feature-card" key={f.title}>
-              <div className="lp-feature-icon" style={{ background: f.color }}>{f.icon}</div>
+              <div className="lp-feature-icon" style={{ background: f.color, color: "#e8607a" }}>{f.icon}</div>
               <h3>{f.title}</h3>
               <p>{f.desc}</p>
             </div>
@@ -565,9 +667,15 @@ export default function Landing() {
           <h1 className="lp-hero-title">Your mind<br /><span className="lp-hero-accent">deserves to</span><br />bloom.</h1>
           <p className="lp-hero-body">Write freely. Let AI understand your emotions. Discover your stress patterns and grow — one journal entry at a time.</p>
           <div className="lp-hero-trust">
-            <span>🔒 Private</span>
-            <span>🤖 AI-powered</span>
-            <span>📊 Visual insights</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <LockIcon size={18} /> Private
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <BrainIcon size={18} /> AI-powered
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <ChartIcon size={18} /> Visual insights
+            </span>
           </div>
         </div>
         <div className="lp-right">

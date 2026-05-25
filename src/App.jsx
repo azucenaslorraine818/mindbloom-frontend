@@ -11,6 +11,9 @@ import Settings from "./pages/Settings";
 import Support from "./pages/Support";
 import Notifications from "./pages/Notifications";
 import ProtectedRoute from "./ProtectedRoute";
+import "./styles/transitions-only.css";
+import "./styles/dark-mode-entry-colors.css";
+//import "./styles/filter-buttons.css";
 
 
 export default function App() {

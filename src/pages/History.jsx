@@ -318,10 +318,12 @@ export default function History() {
         <div className="history-list">
           {filtered.map((entry) => {
             const isChecked = checked.has(entry.id);
+            const sentiment = (entry.tone || entry.mood || "Neutral").toLowerCase();
             return (
               <div
                 key={entry.id}
                 className={`entry-card ${selectMode && isChecked ? "entry-card-selected" : ""}`}
+                data-sentiment={sentiment}
                 style={getToneStyle(entry.tone || entry.mood)}
                 onClick={() => {
                   if (selectMode) { toggleCheck(entry.id); }

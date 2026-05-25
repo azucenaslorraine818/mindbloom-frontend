@@ -1,0 +1,60 @@
+/* POSITIVE - Green */
+html.dark .entry-card[data-sentiment="positive"] {
+  background-color: #1b3a1e !important;
+  border: 1px solid #22c55e !important;
+  border-left: 6px solid #4ade80 !important;
+}
+
+html.dark .entry-card[data-sentiment="positive"] .entry-date {
+  color: #d0f0d8 !important;
+}
+
+html.dark .entry-card[data-sentiment="positive"] .entry-text {
+  color: #c0e8c8 !important;
+}
+
+/* NEGATIVE - Red */
+html.dark .entry-card[data-sentiment="negative"] {
+  background-color: #3f1a1c !important;
+  border: 1px solid #ef4444 !important;
+  border-left: 6px solid #ff6b7a !important;
+}
+
+html.dark .entry-card[data-sentiment="negative"] .entry-date {
+  color: #ffc0c8 !important;
+}
+
+html.dark .entry-card[data-sentiment="negative"] .entry-text {
+  color: #ffb0b8 !important;
+}
+
+/* NEUTRAL - Grey */
+html.dark .entry-card[data-sentiment="neutral"] {
+  background-color: #1e293b !important;
+  border: 1px solid #475569 !important;
+  border-left: 6px solid #94a3b8 !important;
+}
+
+html.dark .entry-card[data-sentiment="neutral"] .entry-date {
+  color: #cbd5e1 !important;
+}
+
+html.dark .entry-card[data-sentiment="neutral"] .entry-text {
+  color: #b0bcc8 !important;
+}
+
+/* Tone chips */
+html.dark .tone-chip.positive {
+  background-color: #4ade80 !important;
+  color: #ffffff !important;
+}
+
+html.dark .tone-chip.negative {
+  background-color: #ff6b7a !important;
+  color: #ffffff !important;
+}
+
+html.dark .tone-chip.neutral {
+  background-color: #94a3b8 !important;
+  color: #ffffff !important;
+}

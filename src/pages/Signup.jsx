@@ -26,9 +26,6 @@ export default function Signup() {
       email,
       password,
       options: {
-        // ✅ FIX: tells Supabase where to redirect after the user clicks
-        // the confirmation link in their email. Without this, the email
-        // either doesn't send or redirects to the wrong place.
         emailRedirectTo: `${window.location.origin}/`,
       },
     });
@@ -40,6 +37,22 @@ export default function Signup() {
     }
 
     if (data.user) {
+      // ✅ CALL EDGE FUNCTION TO SEND CONFIRMATION EMAIL
+      try {
+        await supabase.functions.invoke("send-confirmation-email", {
+          body: {
+            email: data.user.email,
+            first_name: data.user.user_metadata?.first_name || "there",
+            verification_link: `${window.location.origin}/`,
+            email_type: "welcome",
+          },
+        });
+        console.log("✅ Confirmation email sent");
+      } catch (emailError) {
+        console.error("❌ Email send error:", emailError);
+        // Don't block signup if email fails
+      }
+
       setSent(true);
     }
 

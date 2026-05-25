@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { analyzeJournal } from "../lib/ai";
 import { supabase } from "../lib/supabase";
+import { analyzeSentiment } from "../lib/mindbloom";
+import { buildEmailTemplate } from "../lib/email-templates";
+import { 
+  checkAndCreateNotifications, 
+  cleanupOldNotifications,
+  detectSuicidalIntent,
+  createCrisisAlert,
+} from "../lib/notification-service";
 
 const PROMPTS = [
   "Today I felt…",
@@ -102,8 +109,12 @@ export default function Write() {
     setSaved(false);
 
     try {
-      const analysis = await analyzeJournal(text);
-      if (!analysis) throw new Error("No AI response");
+      const { data: userData } = await supabase.auth.getUser();
+      const user = userData?.user;
+      if (!user) throw new Error("Not authenticated");
+
+      const analysis = analyzeSentiment(text);
+      if (!analysis) throw new Error("No analysis returned");
 
       const safeAnalysis = {
         tone: analysis.tone || "Unknown",
@@ -111,66 +122,137 @@ export default function Write() {
         positive: analysis.positive ?? 33,
         neutral: analysis.neutral ?? 34,
         negative: analysis.negative ?? 33,
+        stressscore: analysis.stressScore || 0,
+        stressors: analysis.stressors || [],
+        polarity: analysis.polarity || 0,
         mindbloom: analysis.mindbloom || "",
       };
 
       setResult(safeAnalysis);
 
-      const { data: userData } = await supabase.auth.getUser();
-      const user = userData?.user;
+      const { data: savedEntry, error } = await supabase.from("entries").insert([
+        {
+          user_id: user.id,
+          note: text,
+          tone: safeAnalysis.tone,
+          positive: safeAnalysis.positive,
+          neutral: safeAnalysis.neutral,
+          negative: safeAnalysis.negative,
+          stressscore: safeAnalysis.stressscore,
+          stressors: safeAnalysis.stressors,
+          tags: safeAnalysis.tags,
+          polarity: safeAnalysis.polarity,
+          mindbloom: safeAnalysis.mindbloom,
+        },
+      ]).select();
 
-      if (user) {
-        const { error } = await supabase.from("entries").insert([
-          {
-            user_id: user.id,
-            note: text,
-            tone: safeAnalysis.tone,
-            positive: safeAnalysis.positive,
-            neutral: safeAnalysis.neutral,
-            negative: safeAnalysis.negative,
-            mindbloom: safeAnalysis.mindbloom,
-            tags: safeAnalysis.tags,
-          },
-        ]);
+      if (!error) {
+        setSaved(true);
 
-        if (!error) setSaved(true);
+        // ──── TRIGGER NOTIFICATIONS ────
+        if (savedEntry && savedEntry[0]) {
+          const newEntry = {
+            ...savedEntry[0],
+            stressScore: safeAnalysis.stressscore,
+          };
+          await checkAndCreateNotifications(user.id, newEntry);
+          await cleanupOldNotifications(user.id);
+        }
+      } else {
+        console.error("Save error:", error);
+      }
 
-        /* =========================
-           🚨 EMERGENCY SYSTEM
-        ========================== */
+      // ──── SUICIDE DETECTION ────
+      const isSuicidal = detectSuicidalIntent(text);
+      
+      if (isSuicidal) {
+        console.warn("🚨 Suicidal intent detected");
+        
+        // Create crisis notification
+        await createCrisisAlert(user.id);
+        
+        // Send emergency email to emergency contact
+        try {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("emergency_contact_email, emergency_contact_name, first_name")
+            .eq("id", user.id)
+            .single();
 
-        const isCritical =
-          safeAnalysis.negative >= 85 ||
-          (safeAnalysis.tone === "Negative" && safeAnalysis.negative >= 70) ||
-          /suicide|kill myself|self harm|hurt myself/i.test(text);
+          if (profile?.emergency_contact_email) {
+            const emailTemplate = buildEmailTemplate("suicide_detection", {
+              emergency_contact_name: profile.emergency_contact_name,
+              user_name: profile.first_name || "Your friend",
+              entry_text: text,
+            });
 
-        const lastAlert = localStorage.getItem("last_emergency_alert");
-        const now = Date.now();
+            await supabase.functions.invoke("send-email", {
+              body: {
+                email: profile.emergency_contact_email,
+                subject: emailTemplate.subject,
+                htmlContent: emailTemplate.htmlContent,
+                email_type: "suicide_detection",
+              },
+            });
 
-        const canSend = !lastAlert || now - lastAlert > 6 * 60 * 60 * 1000;
+            console.log("✅ Suicide detection email sent");
+          }
+        } catch (emailErr) {
+          console.error("⚠️ Suicide email send failed:", emailErr);
+        }
+      }
 
-        if (isCritical && canSend) {
-          localStorage.setItem("last_emergency_alert", now);
+      // ──── HIGH STRESS ALERT (if not suicidal) ────
+      const isCritical =
+        safeAnalysis.negative >= 85 ||
+        (safeAnalysis.tone === "Negative" && safeAnalysis.negative >= 70);
 
-          await supabase.functions.invoke("send-emergency-email", {
-            body: {
-              user_id: user.id,
-              message: text,
-              score: safeAnalysis.negative,
-            },
-          });
+      const lastAlert = localStorage.getItem("last_emergency_alert");
+      const now = Date.now();
+      const canSend = !lastAlert || now - lastAlert > 6 * 60 * 60 * 1000;
+
+      if (isCritical && canSend && !isSuicidal) {
+        console.warn("⚠️ High stress detected");
+        localStorage.setItem("last_emergency_alert", now);
+
+        try {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("emergency_contact_email, emergency_contact_name, first_name")
+            .eq("id", user.id)
+            .single();
+
+          if (profile?.emergency_contact_email) {
+            const emailTemplate = buildEmailTemplate("high_stress", {
+              emergency_contact_name: profile.emergency_contact_name,
+              user_name: profile.first_name || "Your friend",
+              entry_text: text,
+            });
+
+            await supabase.functions.invoke("send-email", {
+              body: {
+                email: profile.emergency_contact_email,
+                subject: emailTemplate.subject,
+                htmlContent: emailTemplate.htmlContent,
+                email_type: "high_stress",
+              },
+            });
+
+            console.log("✅ High stress email sent");
+          }
+        } catch (emailErr) {
+          console.error("⚠️ High stress email send failed:", emailErr);
         }
       }
     } catch (err) {
-      console.error("AI error:", err);
-
+      console.error("Error:", err);
       setResult({
         tone: "Error",
         tags: ["system"],
         positive: 33,
         neutral: 34,
         negative: 33,
-        mindbloom: "AI failed to analyze this entry.",
+        mindbloom: "Failed to analyze. Try again.",
       });
     }
 
@@ -185,15 +267,12 @@ export default function Write() {
 
   return (
     <div className="write-page-v2">
-
       <div className="write-header">
         <h1>How are you today?</h1>
       </div>
 
       <div className="write-columns">
-
         <div className="write-main">
-
           <textarea
             placeholder="Write freely about how you're feeling today..."
             value={text}
@@ -228,9 +307,8 @@ export default function Write() {
         </div>
 
         <div className="write-sidebar">
-
           <div className="write-tips-card">
-            <p className="write-tips-title"> Writing tips</p>
+            <p className="write-tips-title">Writing tips</p>
             <ul className="write-tips-list">
               {TIPS.map((t, i) => <li key={i}>{t}</li>)}
             </ul>
@@ -251,10 +329,8 @@ export default function Write() {
               ))}
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
   );
 }

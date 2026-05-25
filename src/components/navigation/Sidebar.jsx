@@ -81,60 +81,196 @@ const UTILITY_NAV = [
 /* ── Component ────────────────────────────────────────────────── */
 export default function Sidebar({ handleLogout, open, onClose }) {
   return (
-    <aside id="sidebar" className={open ? "sb-open" : ""}>
+    <>
+      <style>{`
+        @keyframes sidebarGradient {
+          0% {
+            background: linear-gradient(135deg, #fff8fa 0%, #f5e6ff 50%, #fff8fa 100%);
+          }
+          25% {
+            background: linear-gradient(135deg, #f5e6ff 0%, #fff8fa 50%, #e6f7ff 100%);
+          }
+          50% {
+            background: linear-gradient(135deg, #e6f7ff 0%, #f5e6ff 50%, #fff8fa 100%);
+          }
+          75% {
+            background: linear-gradient(135deg, #fff8fa 0%, #e6f7ff 50%, #f5e6ff 100%);
+          }
+          100% {
+            background: linear-gradient(135deg, #fff8fa 0%, #f5e6ff 50%, #fff8fa 100%);
+          }
+        }
 
-      {/* Brand */}
-      <div className="sb-brand">
-        <div className="sb-brand-row">
-          <img src="/mblogo.png" alt="MindBloom" className="sb-logo-img" />
-          <span className="sb-brand-name">MindBloom</span>
-          {/* Close button — visible on mobile when sidebar is open */}
-          <button className="sb-close-btn" onClick={onClose} aria-label="Close sidebar">
-            <CloseIcon />
+        @keyframes float1 {
+          0%, 100% {
+            transform: translate(0px, 0px);
+            opacity: 0.3;
+          }
+          25% {
+            transform: translate(20px, -30px);
+            opacity: 0.2;
+          }
+          50% {
+            transform: translate(-15px, 20px);
+            opacity: 0.25;
+          }
+          75% {
+            transform: translate(-30px, -15px);
+            opacity: 0.2;
+          }
+        }
+
+        @keyframes float2 {
+          0%, 100% {
+            transform: translate(0px, 0px);
+            opacity: 0.25;
+          }
+          25% {
+            transform: translate(-30px, 20px);
+            opacity: 0.15;
+          }
+          50% {
+            transform: translate(20px, -25px);
+            opacity: 0.2;
+          }
+          75% {
+            transform: translate(15px, 30px);
+            opacity: 0.15;
+          }
+        }
+
+        @keyframes float3 {
+          0%, 100% {
+            transform: translate(0px, 0px);
+            opacity: 0.2;
+          }
+          25% {
+            transform: translate(15px, 30px);
+            opacity: 0.15;
+          }
+          50% {
+            transform: translate(-25px, -15px);
+            opacity: 0.2;
+          }
+          75% {
+            transform: translate(30px, 20px);
+            opacity: 0.15;
+          }
+        }
+
+        .sb-animated-bg {
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #fff8fa 0%, #f5e6ff 50%, #fff8fa 100%);
+          animation: sidebarGradient 20s ease-in-out infinite;
+          z-index: -1;
+          pointer-events: none;
+        }
+
+        .sb-blob {
+          position: absolute;
+          border-radius: 50%;
+          mix-blend-mode: screen;
+          filter: blur(40px);
+        }
+
+        .sb-blob1 {
+          width: 150px;
+          height: 150px;
+          background: rgba(232, 96, 122, 0.2);
+          top: 15%;
+          left: 10%;
+          animation: float1 15s ease-in-out infinite;
+        }
+
+        .sb-blob2 {
+          width: 180px;
+          height: 180px;
+          background: rgba(109, 191, 138, 0.15);
+          bottom: 25%;
+          right: 10%;
+          animation: float2 18s ease-in-out infinite;
+        }
+
+        .sb-blob3 {
+          width: 120px;
+          height: 120px;
+          background: rgba(160, 174, 192, 0.15);
+          top: 50%;
+          right: 15%;
+          animation: float3 16s ease-in-out infinite;
+        }
+
+        #sidebar {
+          position: relative;
+          z-index: 10;
+        }
+      `}</style>
+
+      <div className="sb-animated-bg">
+        <div className="sb-blob sb-blob1"></div>
+        <div className="sb-blob sb-blob2"></div>
+        <div className="sb-blob sb-blob3"></div>
+      </div>
+
+      <aside id="sidebar" className={open ? "sb-open" : ""}>
+
+        {/* Brand */}
+        <div className="sb-brand">
+          <div className="sb-brand-row">
+            <img src="/mblogo.png" alt="MindBloom" className="sb-logo-img" />
+            <span className="sb-brand-name">MindBloom</span>
+            {/* Close button — visible on mobile when sidebar is open */}
+            <button className="sb-close-btn" onClick={onClose} aria-label="Close sidebar">
+              <CloseIcon />
+            </button>
+          </div>
+          <span className="sb-brand-sub">Your Daily Stress Journal</span>
+        </div>
+
+        {/* Nav */}
+        <nav className="sb-nav">
+          {PRIMARY_NAV.map(({ to, end, Icon, label }) => (
+            <NavLink
+              key={to} to={to} end={end}
+              onClick={onClose}
+              className={({ isActive }) => "sb-item" + (isActive ? " sb-active" : "")}
+            >
+              <span className="sb-icon"><Icon /></span>
+              <span className="sb-label">{label}</span>
+            </NavLink>
+          ))}
+
+          <div className="sb-sep" />
+
+          {UTILITY_NAV.map(({ to, end, Icon, label }) => (
+            <NavLink
+              key={to} to={to} end={end}
+              onClick={onClose}
+              className={({ isActive }) => "sb-item" + (isActive ? " sb-active" : "")}
+            >
+              <span className="sb-icon"><Icon /></span>
+              <span className="sb-label">{label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Footer */}
+        <div className="sb-footer">
+          <div className="sb-dark-row">
+            <span className="sb-dark-label">Dark mode</span>
+            <DarkModeToggle />
+          </div>
+          <button className="sb-logout" onClick={handleLogout}>
+            <SignOutIcon />
+            Sign out
           </button>
         </div>
-        <span className="sb-brand-sub">Your Daily Stress Journal</span>
-      </div>
 
-      {/* Nav */}
-      <nav className="sb-nav">
-        {PRIMARY_NAV.map(({ to, end, Icon, label }) => (
-          <NavLink
-            key={to} to={to} end={end}
-            onClick={onClose}
-            className={({ isActive }) => "sb-item" + (isActive ? " sb-active" : "")}
-          >
-            <span className="sb-icon"><Icon /></span>
-            <span className="sb-label">{label}</span>
-          </NavLink>
-        ))}
-
-        <div className="sb-sep" />
-
-        {UTILITY_NAV.map(({ to, end, Icon, label }) => (
-          <NavLink
-            key={to} to={to} end={end}
-            onClick={onClose}
-            className={({ isActive }) => "sb-item" + (isActive ? " sb-active" : "")}
-          >
-            <span className="sb-icon"><Icon /></span>
-            <span className="sb-label">{label}</span>
-          </NavLink>
-        ))}
-      </nav>
-
-      {/* Footer */}
-      <div className="sb-footer">
-        <div className="sb-dark-row">
-          <span className="sb-dark-label">Dark mode</span>
-          <DarkModeToggle />
-        </div>
-        <button className="sb-logout" onClick={handleLogout}>
-          <SignOutIcon />
-          Sign out
-        </button>
-      </div>
-
-    </aside>
+      </aside>
+    </>
   );
 }
