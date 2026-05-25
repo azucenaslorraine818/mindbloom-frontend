@@ -664,7 +664,7 @@ export default function Landing() {
       <div className="lp-split">
         <div className="lp-hero">
           <div className="lp-hero-badge">AI-Powered Mental Wellness</div>
-          <h1 className="lp-hero-title">Your mind<br /><span className="lp-hero-accent">deserves to</span><br />bloom.</h1>
+          <h1 className="lp-hero-title">Your mind<br /><span className="lp-hero-accent">deserve to</span><br />bloom.</h1>
           <p className="lp-hero-body">Write freely. Let AI understand your emotions. Discover your stress patterns and grow — one journal entry at a time.</p>
           <div className="lp-hero-trust">
             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
