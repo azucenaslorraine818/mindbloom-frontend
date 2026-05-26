@@ -11,12 +11,32 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
+  const validatePassword = (pwd) => {
+    const hasMinLength = pwd.length >= 8;
+    const hasUppercase = /[A-Z]/.test(pwd);
+    const hasLowercase = /[a-z]/.test(pwd);
+    const hasNumber = /[0-9]/.test(pwd);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pwd);
+
+    return {
+      isValid: hasMinLength && hasUppercase && hasLowercase && hasNumber && hasSpecial,
+      hasMinLength,
+      hasUppercase,
+      hasLowercase,
+      hasNumber,
+      hasSpecial,
+    };
+  };
+
+  const passwordCheck = validatePassword(password);
+  const allRequirementsMet = passwordCheck.isValid;
+
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
+    if (!allRequirementsMet) {
+      setError("Password must meet all requirements.");
       return;
     }
 
@@ -86,7 +106,6 @@ export default function Signup() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-
         <div className="auth-logo-wrap">
           <Logo size={56} />
           <h1 className="auth-logo-title">MindBloom</h1>
@@ -102,18 +121,53 @@ export default function Signup() {
             className="auth-input"
             required
           />
-          <input
-            type="password"
-            placeholder="Password (min 8 chars)"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="auth-input"
-            required
-          />
+
+          <div style={{ position: "relative" }}>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input"
+              required
+            />
+
+            {password && (
+              <div style={{
+                fontSize: "12px",
+                marginTop: "6px",
+                padding: "8px",
+                backgroundColor: "#f8f7ff",
+                borderRadius: "6px",
+                border: "1px solid #e9d5ff",
+              }}>
+                <div style={{ color: passwordCheck.hasMinLength ? "#10b981" : "#999", marginBottom: "4px" }}>
+                  {passwordCheck.hasMinLength ? "✓" : "○"} 8+ characters
+                </div>
+                <div style={{ color: passwordCheck.hasUppercase ? "#10b981" : "#999", marginBottom: "4px" }}>
+                  {passwordCheck.hasUppercase ? "✓" : "○"} Uppercase letter
+                </div>
+                <div style={{ color: passwordCheck.hasLowercase ? "#10b981" : "#999", marginBottom: "4px" }}>
+                  {passwordCheck.hasLowercase ? "✓" : "○"} Lowercase letter
+                </div>
+                <div style={{ color: passwordCheck.hasNumber ? "#10b981" : "#999", marginBottom: "4px" }}>
+                  {passwordCheck.hasNumber ? "✓" : "○"} Number
+                </div>
+                <div style={{ color: passwordCheck.hasSpecial ? "#10b981" : "#999" }}>
+                  {passwordCheck.hasSpecial ? "✓" : "○"} Special character
+                </div>
+              </div>
+            )}
+          </div>
 
           {error && <p className="auth-error">{error}</p>}
 
-          <button type="submit" className="auth-button" disabled={loading}>
+          <button
+            type="submit"
+            className="auth-button"
+            disabled={loading || !allRequirementsMet}
+            style={{ opacity: !allRequirementsMet ? 0.5 : 1 }}
+          >
             {loading ? "Creating account…" : "Sign Up"}
           </button>
         </form>
@@ -122,7 +176,6 @@ export default function Signup() {
           Already have an account?{" "}
           <Link to="/">Log in</Link>
         </p>
-
       </div>
     </div>
   );

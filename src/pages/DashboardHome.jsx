@@ -11,9 +11,21 @@ function ToneChip({ tone }) {
 
 function getToneStyle(tone) {
   const t = (tone || "").toLowerCase();
-  if (t === "positive") return { background: "#f0fff4", border: "1px solid #b7ebc6", borderLeft: "6px solid #6DBF8A" };
-  if (t === "negative") return { background: "#fff1f0", border: "1px solid #ffccc7", borderLeft: "6px solid #E8607A" };
-  return { background: "#f5f5f5", border: "1px solid #e5e5e5", borderLeft: "6px solid #A0AEC0" };
+  if (t === "positive") return { 
+    background: "rgba(34, 197, 94, 0.25)",
+    border: "2px solid #22c55e", 
+    borderLeft: "6px solid #22c55e"
+  };
+  if (t === "negative") return { 
+    background: "rgba(239, 68, 68, 0.25)",
+    border: "2px solid #ef4444", 
+    borderLeft: "6px solid #ef4444"
+  };
+  return { 
+    background: "rgba(107, 114, 128, 0.18)",
+    border: "2px solid #6b7280", 
+    borderLeft: "6px solid #6b7280"
+  };
 }
 
 // SVG icons for quick action cards (no emojis)
@@ -38,142 +50,6 @@ const ActionIcons = {
     </svg>
   ),
 };
-
-// Animated Background Component
-function AnimatedBackground() {
-  return (
-    <>
-      <style>{`
-        @keyframes gradientShift {
-          0% {
-            background: linear-gradient(135deg, #fff8fa 0%, #f5e6ff 50%, #e6f7ff 100%);
-          }
-          25% {
-            background: linear-gradient(135deg, #f5e6ff 0%, #fff8fa 50%, #e6f7ff 100%);
-          }
-          50% {
-            background: linear-gradient(135deg, #e6f7ff 0%, #f5e6ff 50%, #fff8fa 100%);
-          }
-          75% {
-            background: linear-gradient(135deg, #fff8fa 0%, #e6f7ff 50%, #f5e6ff 100%);
-          }
-          100% {
-            background: linear-gradient(135deg, #fff8fa 0%, #f5e6ff 50%, #e6f7ff 100%);
-          }
-        }
-
-        @keyframes float1 {
-          0%, 100% {
-            transform: translate(0px, 0px);
-            opacity: 0.3;
-          }
-          25% {
-            transform: translate(30px, -40px);
-            opacity: 0.2;
-          }
-          50% {
-            transform: translate(-20px, 30px);
-            opacity: 0.25;
-          }
-          75% {
-            transform: translate(-40px, -20px);
-            opacity: 0.2;
-          }
-        }
-
-        @keyframes float2 {
-          0%, 100% {
-            transform: translate(0px, 0px);
-            opacity: 0.25;
-          }
-          25% {
-            transform: translate(-40px, 30px);
-            opacity: 0.15;
-          }
-          50% {
-            transform: translate(30px, -30px);
-            opacity: 0.2;
-          }
-          75% {
-            transform: translate(20px, 40px);
-            opacity: 0.15;
-          }
-        }
-
-        @keyframes float3 {
-          0%, 100% {
-            transform: translate(0px, 0px);
-            opacity: 0.2;
-          }
-          25% {
-            transform: translate(20px, 40px);
-            opacity: 0.15;
-          }
-          50% {
-            transform: translate(-30px, -20px);
-            opacity: 0.2;
-          }
-          75% {
-            transform: translate(40px, 30px);
-            opacity: 0.15;
-          }
-        }
-
-        .animated-bg-container {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, #fff8fa 0%, #f5e6ff 50%, #e6f7ff 100%);
-          animation: gradientShift 20s ease-in-out infinite;
-          z-index: -1;
-          pointer-events: none;
-        }
-
-        .blob {
-          position: absolute;
-          border-radius: 50%;
-          mix-blend-mode: screen;
-          filter: blur(40px);
-        }
-
-        .blob1 {
-          width: 200px;
-          height: 200px;
-          background: rgba(232, 96, 122, 0.2);
-          top: 10%;
-          left: 10%;
-          animation: float1 15s ease-in-out infinite;
-        }
-
-        .blob2 {
-          width: 250px;
-          height: 250px;
-          background: rgba(109, 191, 138, 0.15);
-          bottom: 20%;
-          right: 15%;
-          animation: float2 18s ease-in-out infinite;
-        }
-
-        .blob3 {
-          width: 180px;
-          height: 180px;
-          background: rgba(160, 174, 192, 0.15);
-          top: 50%;
-          right: 10%;
-          animation: float3 16s ease-in-out infinite;
-        }
-      `}</style>
-
-      <div className="animated-bg-container">
-        <div className="blob blob1"></div>
-        <div className="blob blob2"></div>
-        <div className="blob blob3"></div>
-      </div>
-    </>
-  );
-}
 
 export default function DashboardHome() {
   const navigate = useNavigate();
@@ -245,89 +121,92 @@ export default function DashboardHome() {
     });
 
   return (
-    <>
-      <AnimatedBackground />
-      <div className="home-v2">
+    <div className="home-v2">
 
-        {/* ── HERO ── */}
-        <section className="hero-v2">
-          <div className="hero-v2-text">
-            <h1 className="hero-v2-greeting">{helloGreeting}</h1>
-            <p className="hero-v2-sub">
-              Take a moment to reflect on how you feel. MindBloom uses AI to understand
-              your emotions and reveal patterns over time.
-            </p>
-          </div>
-          <div className="hero-v2-logo">
-            <img
-              src="/mblogo.png"
-              alt="MindBloom"
-              style={{ width: 90, height: 90, objectFit: "contain" }}
-            />
-          </div>
-        </section>
-
-        {/* ── QUICK ACTIONS ── */}
-        <div className="home-v2-actions">
-          {quickActions.map((a) => (
-            <div className="action-card" key={a.title} onClick={() => navigate(a.to)}>
-              <div
-                className="action-icon"
-                style={{ background: a.bg, color: a.iconColor }}
-              >
-                {ActionIcons[a.icon]}
-              </div>
-              <h3 className="action-title">{a.title}</h3>
-              <p className="action-desc">{a.desc}</p>
-            </div>
-          ))}
+      {/* ── HERO ── */}
+      <section className="hero-v2">
+        <div className="hero-v2-text">
+          <h1 className="hero-v2-greeting">{helloGreeting}</h1>
+          <p className="hero-v2-sub">
+            Take a moment to reflect on how you feel. MindBloom uses AI to understand
+            your emotions and reveal patterns over time.
+          </p>
         </div>
+        <div className="hero-v2-logo">
+          <img
+            src="/mblogo.png"
+            alt="MindBloom"
+            style={{ width: 90, height: 90, objectFit: "contain" }}
+          />
+        </div>
+      </section>
 
-        {/* ── RECENT ENTRIES ── */}
-        <section className="home-v2-recent">
-          <h2 className="home-v2-section-title">Recent Entries</h2>
-
-          {loading ? (
-            <p style={{ color: "#8a6672", fontSize: 14 }}>Loading…</p>
-          ) : entries.length === 0 ? (
-            <div className="home-empty">
-              <p>No entries yet.</p>
-              <button
-                className="save-btn"
-                style={{ marginTop: 12, padding: "12px 28px" }}
-                onClick={() => navigate("/app/write")}
-              >
-                Write your first entry
-              </button>
+      {/* ── QUICK ACTIONS ── */}
+      <div className="home-v2-actions">
+        {quickActions.map((a) => (
+          <div className="action-card" key={a.title} onClick={() => navigate(a.to)}>
+            <div
+              className="action-icon"
+              style={{ background: a.bg, color: a.iconColor }}
+            >
+              {ActionIcons[a.icon]}
             </div>
-          ) : (
-            <div className="recent-list">
-              {entries.map((e) => {
-                const tone = e.tone || e.mood || "Neutral";
-                return (
-                  <div
-                    className="recent-entry"
-                    key={e.id}
-                    onClick={() => navigate("/app/history")}
-                    style={getToneStyle(tone)}
-                  >
-                    <div className="recent-entry-top">
-                      <span className="recent-entry-date">{formatDate(e.created_at)}</span>
-                      <ToneChip tone={tone} />
-                    </div>
-                    <p className="recent-entry-text">
-                      "{e.note?.length > 120 ? e.note.slice(0, 120) + "…" : e.note}"
-                    </p>
-                    <span className="recent-entry-arrow">›</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </section>
-
+            <h3 className="action-title">{a.title}</h3>
+            <p className="action-desc">{a.desc}</p>
+          </div>
+        ))}
       </div>
-    </>
+
+      {/* ── RECENT ENTRIES ── */}
+      <section className="home-v2-recent">
+        <h2 className="home-v2-section-title">Recent Entries</h2>
+
+        {loading ? (
+          <p style={{ color: "#8a6672", fontSize: 14 }}>Loading…</p>
+        ) : entries.length === 0 ? (
+          <div className="home-empty">
+            <p>No entries yet.</p>
+            <button
+              className="save-btn"
+              style={{ marginTop: 12, padding: "12px 28px" }}
+              onClick={() => navigate("/app/write")}
+            >
+              Write your first entry
+            </button>
+          </div>
+        ) : (
+          <div className="recent-list">
+            {entries.map((e) => {
+              const tone = e.tone || e.mood || "Neutral";
+              return (
+                <div
+                  className="recent-entry"
+                  key={e.id}
+                  onClick={() => navigate("/app/history")}
+                  style={{
+                    ...getToneStyle(tone),
+                    padding: "16px 20px",
+                    borderRadius: "12px",
+                    marginBottom: "12px",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease"
+                  }}
+                >
+                  <div className="recent-entry-top">
+                    <span className="recent-entry-date">{formatDate(e.created_at)}</span>
+                    <ToneChip tone={tone} />
+                  </div>
+                  <p className="recent-entry-text">
+                    "{e.note?.length > 120 ? e.note.slice(0, 120) + "…" : e.note}"
+                  </p>
+                  <span className="recent-entry-arrow">›</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+    </div>
   );
-} 
- 
+}

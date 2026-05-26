@@ -1,4 +1,10 @@
 
+[functions.create-profile]
+enabled = true
+verify_jwt = false
+import_map = "./functions/create-profile/deno.json"
+entrypoint = "./functions/create-profile/index.ts"
+
 [functions.send-emergency-email]
 enabled = true
 verify_jwt = true
